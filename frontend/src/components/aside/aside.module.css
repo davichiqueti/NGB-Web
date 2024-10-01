@@ -20,14 +20,14 @@
 }
 
 .asideButton svg {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 @media (max-width: 1024px) {
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
 
     .aside {
         width: 15%;
@@ -38,8 +38,14 @@
     }
 
     .asideButton {
+        font-size: small;
         justify-content: center;
     }
 }
 
-@media (max-width: 640px) {}
+@media (max-width: 640px) {
+
+    .aside {
+        display: none;
+    }
+}
