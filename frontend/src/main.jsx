@@ -7,6 +7,9 @@ import './index.css'
 
 import Home from './pages/home/home.jsx'
 import Profile from './pages/profile/profile.jsx'
+import Messages from './pages/messages/messages.jsx'
+import Notifications from './pages/notifications/notifications.jsx'
+import Explore from './pages/explore/explore.jsx'
 
 const router = createBrowserRouter([
   {
@@ -14,7 +17,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/profile', element: <Profile /> }
+      { path: '/profile', element: <Profile /> },
+      { path: '/messages', element: <Messages /> },
+      { path: '/notifications', element: <Notifications /> },
+      { path: '/explore', element: <Explore /> }
     ],
   },
 ])
