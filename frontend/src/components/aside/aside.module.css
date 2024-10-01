@@ -5,5 +5,21 @@
     left: 0;
     top: 0;
     border-right: 1px solid #4e4e4e;
-    padding: 20px;
+    padding: 2em;
+}
+
+.asideButton {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: large;
+}
+
+.asideButton svg {
+    font-size: 24px;
 }
