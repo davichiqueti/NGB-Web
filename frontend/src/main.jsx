@@ -8,7 +8,7 @@ import './index.css'
 import Home from './pages/home/home.jsx'
 import Profile from './pages/profile/profile.jsx'
 
-const pages = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
@@ -22,7 +22,7 @@ const pages = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
 
-    <RouterProvider router={pages} />
+    <RouterProvider router={router} />
 
   </StrictMode>,
 )
