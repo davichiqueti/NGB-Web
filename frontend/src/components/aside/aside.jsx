@@ -34,8 +34,6 @@ export default function Aside() {
                         <Link to='/' className={styles.logo}>
                             <img src="/logo.png" alt="logo" />
                         </Link>
-                        
-                        <br />
 
                         <Link to='/' className={styles.asideButton}>
                             <FaHouse />
