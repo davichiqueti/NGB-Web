@@ -1,9 +1,20 @@
+import './App.css'
+
+import { Outlet } from "react-router-dom"
+
+import Aside from "./components/aside/aside"
 
 export default function App() {
 
   return (
     <>
-      <h1>Frontend</h1>
+
+      <Aside />
+
+      <main>
+        <Outlet />
+      </main>
+
     </>
   )
 }
