@@ -1,36 +1,74 @@
 .aside {
-    width: 25%;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
     position: fixed;
+    width: fit-content;
+    height: 100vh;
     left: 0;
     top: 0;
     border-right: 1px solid #4e4e4e;
     padding: 2em;
+    padding-top: 1em;
 }
+
+.logo img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+}
+
 
 .asideButton {
     display: flex;
     align-items: center;
     gap: 1em;
     padding: 0.5em;
-    margin-bottom: 1em;
+    font-size: large;
+    margin-bottom: 0.7em;
     border-radius: 10px;
     text-decoration: none;
     color: #ffffff;
 }
 
 .asideButton svg {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 @media (max-width: 1024px) {
+    .aside {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        position: fixed;
+        width: fit-content;
+        padding: 0;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    .asideButton {
+        width: fit-content;
+        font-size: medium;
+        justify-content: center;
+        margin-bottom: 0.7em;
+    }
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 
     .aside {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 15%;
+        padding: 0;
     }
     
     .asideButton p {
@@ -38,8 +76,10 @@
     }
 
     .asideButton {
+        width: fit-content;
         font-size: small;
         justify-content: center;
+        margin-bottom: 1em;
     }
 }
 

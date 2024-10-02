@@ -30,7 +30,11 @@ export default function Aside() {
             {windowWidth > 640 ? (
                 <>
                     <aside className={styles.aside}>
-                        <h1>Logo</h1>
+
+                        <Link to='/' className={styles.logo}>
+                            <img src="/logo.png" alt="logo" />
+                        </Link>
+                        
                         <br />
 
                         <Link to='/' className={styles.asideButton}>
