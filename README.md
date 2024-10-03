@@ -13,7 +13,7 @@ The idea of the project is to develop a web application similar to the social ne
 
 ## API Routes
 
-### Authentication Routes
+### Authentication Routes "/api/auth/"
 
 | Method | Endpoint         | Description                                                   |
 |--------|------------------|---------------------------------------------------------------|
@@ -21,6 +21,7 @@ The idea of the project is to develop a web application similar to the social ne
 | POST   | `/signup`        | Registers a new user.                                         |
 | POST   | `/login`         | Authenticates a user and return a token.                      |
 | POST   | `/logout`        | Logs out the user, invalidating the token.                    |
+| DELETE | `/delete-account`| Delete current logged account, and removes the token.         |
 
 #### Middlewares
 
