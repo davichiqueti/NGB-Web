@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './aside.module.css';
 import { Link } from 'react-router-dom';
-import { FaHashtag, FaHouse, FaBell, FaEnvelope } from "react-icons/fa6";
-import { MdPerson } from "react-icons/md";
+
+import { FaHouse, FaBell, FaEnvelope } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
+
+import { MdPerson  } from "react-icons/md";
 import { CgMoreO } from "react-icons/cg";
 
-export default function Aside() {
+export default function Navigation() {
     
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -41,7 +44,7 @@ export default function Aside() {
                         </Link>
 
                         <Link to='/explore' className={styles.asideButton}>
-                            <FaHashtag />
+                            <FaSearch />
                             <p>Explore</p>
                         </Link>
 
@@ -68,7 +71,6 @@ export default function Aside() {
                 </>
             ) : (
                 <>
-                
                 </>
             )}
 
