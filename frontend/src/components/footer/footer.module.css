@@ -14,7 +14,7 @@ footer{
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
+        justify-content: space-evenly;
         padding: 1em;
         gap: fit-content;
         border-top: 1.5px solid #4e4e4e;
@@ -22,5 +22,6 @@ footer{
 
     .link{
         color: #fff;
+        font-size: x-large;
     }
 }
