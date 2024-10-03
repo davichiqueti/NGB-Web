@@ -24,4 +24,4 @@ The idea of the project is to develop a web application similar to the social ne
 
 #### Middlewares
 
-- **protectRoute**: Middleware that protects routes requiring authentication by checking for a valid token.
+- **protectRoute**: Middleware that protects routes requiring authentication and adds an "user" field in the request for use in controllers.
