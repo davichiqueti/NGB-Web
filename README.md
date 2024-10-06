@@ -1,11 +1,47 @@
-# NGBet
-Repositório dedicado ao trabalho principal da disciplina Programação para Web (INE5646-UFSC)
+# NGB
 
-A ideia do projeto é desenvolver uma aplicação web similar a rede social X (Antigo Twitter). Em que usuários podem realizar postagens públicas em seu perfil, interagir com postagens de outros usuários e também trocar mensagens de forma privada com outro usuário.
+Repository dedicated to the main project of the course Web Programming (INE5646-UFSC)
 
-## Alunos Envolvidos no Projeto
+The idea of the project is to develop a web application similar to the social network X (formerly Twitter). Users can make public posts on their profiles, interact with posts from other users, and also exchange private messages with another user.
+
+## Students Involved in the Project
 
 - Bernardo Alves Thives
 - Davi Rodrigues Chiqueti
 - Gustavo Gomes Formento
 - Gustavo Padrao Serra de Araujo
+
+## Running development project
+
+```bash
+# Starting Back-End
+npm run dev
+# Starting Front-End     
+cd frontend
+npm run dev
+```
+
+## API Routes
+
+### Authentication ```/api/auth/```
+
+| Method | Endpoint         | Description                                                   |
+|--------|------------------|---------------------------------------------------------------|
+| GET    | `/authcheck`     | Checks if the user is authenticated. Requires a valid token.  |
+| POST   | `/signup`        | Registers a new user.                                         |
+| POST   | `/login`         | Authenticates a user and return a token.                      |
+| POST   | `/logout`        | Logs out the user, invalidating the token.                    |
+| DELETE | `/delete-account`| Delete current logged account, and removes the token.         |
+
+### Users ```/api/users/```
+
+| Method | Endpoint                     | Description                                                   |
+|--------|----------------------        |---------------------------------------------------------------|
+| GET    | `/profile/$user_name`        | Gets user information.                                        |
+| GET    | `/suggest`                   | Gets suggestions of profiles to follow.                       |
+| POST   | `/toggle-follow/$user_id`    | Follow/Unfollow user.                                         |
+| POST   | `/update`                    | Update user information                                       |
+
+### Middlewares
+
+- **protectRoute**: Middleware that protects routes requiring authentication and adds an "user" field in the request for use in controllers.
