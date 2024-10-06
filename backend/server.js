@@ -1,5 +1,6 @@
 import express, { urlencoded } from "express";
 import authRoutes from "./routes/auth.js";
+import usersRoutes from "./routes/users.js";
 import dotenv from "dotenv";
 import connectMongoDB from "./database/connectMongoDB.js";
 import cookieParser from "cookie-parser";
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true })); //Allows parsing request data f
 app.use(cookieParser());
 // Setting routes
 app.use("/api/auth", authRoutes);
+app.use("/api/users", usersRoutes);
 // Exposing APP
 app.listen(8000, () => {
         console.log("Server running on port 8000");
