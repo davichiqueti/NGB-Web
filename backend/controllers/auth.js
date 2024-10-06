@@ -1,29 +1,32 @@
 import User from "../models/user.js";
 import bcrypt from 'bcryptjs';
 import { generateUserToken } from '../lib/utils/generateUserToken.js';
-
+import { validateEmail } from '../lib/utils/validateEmail.js';
 
 export const signup = async (req, res) => {
     try {
         const { full_name, username, email, password } = req.body;
+        if (!full_name || !username || !email || !password) {
+            const error_message = "Missing one or more of required info (full_name, username, email, password)";
+            return res.status(400).json({ error: error_message });
+        }
         // Checking password lenght
         if (password.length < 6) {
-            return res.status(400).json({ error: "Password must have at least 6 characters" })
+            return res.status(400).json({ error: "Password must have at least 6 characters" });
         }
         // Checking email pattern
-        const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email_regex.test(email)) {
+        if (!validateEmail(email)) {
             return res.status(400).json({ error: "Invalid email format" });
         }
         // Checking if username is alredy in use
         const existing_user = await User.findOne({ username: username });
         if (existing_user) {
-            return res.status(400).json({ error: "Username is alredy in use" })
+            return res.status(400).json({ error: "Username is alredy in use" });
         }
         // Checking if email is alredy in use
         const existing_email = await User.findOne({ email: email });
         if (existing_email) {
-            return res.status(400).json({ error: "Email is alredy in use" })
+            return res.status(400).json({ error: "Email is alredy in use" });
         }
         // After all validations, creates user account
         const salt = await bcrypt.genSaltSync(10);
@@ -35,7 +38,7 @@ export const signup = async (req, res) => {
             password: hashed_password
         })
         if (new_user) {
-            generateUserToken(new_user._id, res)
+            generateUserToken(new_user._id, res);
             await new_user.save();
             // Updating response data
             res.status(201).json({
@@ -55,8 +58,11 @@ export const login = async (req, res) => {
     try {
         const {username, password} = req.body;
         const user = await User.findOne({username});
+        if(!user) {
+            return res.status(400).json({ error: "Invalid Credentials" })
+        }
         const valid_password = await bcrypt.compare(password, user.password);
-        if(!user || !valid_password) {
+        if(!valid_password) {
             return res.status(400).json({ error: "Invalid Credentials" })
         }
         generateUserToken(user._id, res);

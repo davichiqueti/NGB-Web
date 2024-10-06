@@ -11,9 +11,19 @@ The idea of the project is to develop a web application similar to the social ne
 - Gustavo Gomes Formento
 - Gustavo Padrao Serra de Araujo
 
+## Running development project
+
+```bash
+# Starting Back-End
+npm run dev
+# Starting Front-End     
+cd frontend
+npm run dev
+```
+
 ## API Routes
 
-### Authentication Routes "/api/auth/"
+### Authentication ```/api/auth/```
 
 | Method | Endpoint         | Description                                                   |
 |--------|------------------|---------------------------------------------------------------|
@@ -23,6 +33,15 @@ The idea of the project is to develop a web application similar to the social ne
 | POST   | `/logout`        | Logs out the user, invalidating the token.                    |
 | DELETE | `/delete-account`| Delete current logged account, and removes the token.         |
 
-#### Middlewares
+### Users ```/api/users/```
+
+| Method | Endpoint                     | Description                                                   |
+|--------|----------------------        |---------------------------------------------------------------|
+| GET    | `/profile/$user_name`        | Gets user information.                                        |
+| GET    | `/suggest`                   | Gets suggestions of profiles to follow.                       |
+| POST   | `/toggle-follow/$user_id`    | Follow/Unfollow user.                                         |
+| POST   | `/update`                    | Update user information                                       |
+
+### Middlewares
 
 - **protectRoute**: Middleware that protects routes requiring authentication and adds an "user" field in the request for use in controllers.
