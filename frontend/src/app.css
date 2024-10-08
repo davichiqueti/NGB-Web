@@ -1,7 +1,30 @@
 main {
-    margin-left: 25%;
-    width: 75%;
+    margin-left: 26%;
+    width: 74%;
     padding: 2rem;
-    height: 100vh;
     overflow-y: hidden;
+}
+
+@media (max-width: 1024px) {
+
+    main {
+        margin-left: 25%;
+        width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    main {
+        margin-left: 15%;
+        width: 85%;
+    }
+}
+
+@media (max-width: 640px) {
+
+    main {
+        margin-left: 0;
+        width: 100%;
+    }
 }
