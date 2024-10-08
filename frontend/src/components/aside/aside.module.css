@@ -22,7 +22,6 @@
     height: auto;
 }
 
-
 .asideButton {
     display: flex;
     align-items: center;
@@ -101,6 +100,12 @@
         margin-bottom: 0.5em;
     }
 }
+
+
+
+
+
+
 
 @media (max-width: 640px) {
 
