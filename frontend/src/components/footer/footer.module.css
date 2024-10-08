@@ -15,8 +15,8 @@ footer{
         flex-direction: row;
         align-items: center;
         justify-content: space-evenly;
-        padding: 1em;
-        gap: fit-content;
+        padding: 1.5em;
+        gap: 2em;
         border-top: 1.5px solid #4e4e4e;
     }
 

@@ -29,7 +29,7 @@ export default function Navigation() {
 
 
     return (
-        <div>
+        <>
             {windowWidth > 640 ? (
                 <>
                     <aside className={styles.aside}>
@@ -74,6 +74,6 @@ export default function Navigation() {
                 </>
             )}
 
-        </div>
+        </>
     );
 }

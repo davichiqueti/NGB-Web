@@ -1,0 +1,28 @@
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    display: none;
+    background-color: aqua;
+}
+
+@media (max-width: 640px) {
+
+    header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 0.5em;
+        gap: 2em;   
+    }
+
+    img {
+        width: 100%;
+        max-width: 60px;
+        height: auto;
+    }
+}
