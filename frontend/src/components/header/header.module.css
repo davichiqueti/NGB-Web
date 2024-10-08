@@ -6,7 +6,6 @@ header {
     width: 100%;
     color: #fff;
     display: none;
-    background-color: aqua;
 }
 
 @media (max-width: 640px) {
@@ -15,14 +14,21 @@ header {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: center;
+        position: relative;
         padding: 0.5em;
-        gap: 2em;   
+        border-bottom: 1.5px solid #4e4e4e;
+    }
+
+    .profileLink {
+        font-size: x-large;
+        position: absolute;
+        left: 1em;
     }
 
     img {
         width: 100%;
-        max-width: 60px;
+        max-width: 50px;
         height: auto;
     }
 }

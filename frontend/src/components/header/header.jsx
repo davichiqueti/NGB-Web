@@ -11,7 +11,7 @@ export default function Header() {
 
             <header className={styles.header}>
 
-                <Link to='/profile'>
+                <Link to='/profile' className={styles.profileLink}>
 
                     <MdPerson className={styles.link} />
 
