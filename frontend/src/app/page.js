@@ -1,8 +1,9 @@
+import Navigation from '../components/aside/aside.js'
 
 export default function Home() {
   return (
     <>
-      <h1>Home</h1>
+      <Navigation />
     </>
   );
 }
