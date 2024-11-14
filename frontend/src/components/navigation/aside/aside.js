@@ -1,11 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-import styles from './aside.module.css'
 
-export default function Navigation() {
+export default function Aside() {
 
     return(
         <>
