@@ -7,7 +7,7 @@ import Header from "@/components/navigation/mobile/header/header.js";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className='bg-gray-800 text-white '>
 
         <Aside />
         {children}
