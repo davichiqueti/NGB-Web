@@ -12,7 +12,7 @@ export default function Aside() {
                             flex flex-col
                             py-8 space-y-3">
 
-            <div id="nav" className="flex flex-col items-center space-y-3">
+            <div id="nav" className="flex flex-col items-center space-y-8">
 
                 <Link href='/'>
                     <img
@@ -23,38 +23,29 @@ export default function Aside() {
                 </Link>
 
                 <Link href="/" className="text-2xl font-semibold hover:text-gray-300 flex items-center space-x-2">
-                    <FaHouse className="text-2xl" />
+                    <FaHouse className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl" />
                     <p className="text-left sm-500:hidden lg:block ">Home</p>
                 </Link>
 
-                <Link href="/notifications" className="text-2xl font-semibold hover:text-gray-300 flex items-center space-x-2">
-                    <FaBell className="text-2xl" />
-                    <p className="text-left sm-500:hidden lg:block">Notifications</p>
-                </Link>
-
-
-                {/*
-                
                 <Link href="/explore" className="text-2xl font-semibold hover:text-gray-300 flex items-center space-x-2">
-                    <FaHashtag className="text-xl" />
-                    <p className="text-left">Explore</p>
+                    <FaHashtag className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl" />
+                    <p className="text-left sm-500:hidden lg:block ">Explore</p>
                 </Link>
 
                 <Link href="/notifications" className="text-2xl font-semibold hover:text-gray-300 flex items-center space-x-2">
-                    <FaBell className="text-xl" />
-                    <p className="text-left">Notifications</p>
+                    <FaBell className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl" />
+                    <p className="text-left sm-500:hidden lg:block ">Notifications</p>
                 </Link>
 
                 <Link href="/messages" className="text-2xl font-semibold hover:text-gray-300 flex items-center space-x-2">
-                    <FaEnvelope className="text-xl" />
-                    <p className="text-left">Messages</p>
+                    <FaEnvelope className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl" />
+                    <p className="text-left sm-500:hidden lg:block ">Messages</p>
                 </Link>
 
                 <Link href="/profile" className="text-2xl font-semibold hover:text-gray-300 flex items-center space-x-2">
-                    <IoPersonOutline className="text-xl" />
-                    <p className="text-left">Profile</p>
+                    <IoPersonOutline className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl" />
+                    <p className="text-left sm-500:hidden lg:block ">Profile</p>
                 </Link>
-                */}
 
             </div>
         </aside>
