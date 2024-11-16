@@ -9,8 +9,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className='bg-gray-800 text-white '>
 
-        <Aside />
+        <Header className="" />
+
+        <Aside className="hidden sm-500:block" />
         {children}
+
+        <Footer className="" />
 
       </body>
     </html>
