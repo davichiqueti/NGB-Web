@@ -7,9 +7,11 @@ export default function Header() {
         <>
             <header className="w-full h-16 bg-gray-800 text-white flex items-center justify-between px-4">
 
-                <div className="flex items-center">
+                <Link href="/profile" className="flex items-center">
+
                     <IoPersonOutline className="text-2xl" />
-                </div>
+                    
+                </Link>
 
                 <div className="absolute left-1/2 transform -translate-x-1/2">
                     <Link href='/'>
