@@ -54,8 +54,8 @@ const SignupForm = () => {
 
     <>
     
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <h1>Signup</h1>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-black">
+      <h1 className="text-white">Signup</h1>
       <input
         type="text"
         name="full_name"
@@ -88,7 +88,7 @@ const SignupForm = () => {
         onChange={handleChange}
         required
       />
-      <button type="submit">Create Account</button>
+      <button type="submit" className="text-white">Create Account</button>
     </form>
 
     <Link href='/auth/login'> Already have an account? login</Link>

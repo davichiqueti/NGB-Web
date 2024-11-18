@@ -10,34 +10,42 @@ import Header from "@/components/navigation/mobile/header/header.js";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
-  const pathname = usePathname(); // Obtem a rota atual
+  const pathname = usePathname(); // Rota atual
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Rotas públicas que não precisam de autenticação
   const publicRoutes = ['/auth/login', '/auth/signup'];
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const checkAuth = async () => {
+      if (publicRoutes.includes(pathname)) {
+        setIsAuthenticating(false);
+        return;
+      }
 
-    if (publicRoutes.includes(pathname)) {
-      // Permite acesso às rotas públicas sem verificar o token
-      setIsAuthenticating(false);
-      return;
-    }
+      try {
+        const response = await fetch('http://localhost:8000/api/auth/authcheck', {
+          method: 'GET',
+          credentials: 'include', // Envia cookies
+        });
 
-    if (token) {
-      // Usuário autenticado
-      setIsAuthenticating(false);
-    } else {
-      // Redireciona para login se o token não existir
-      router.push('/auth/login');
-    }
+        if (response.ok) {
+          const data = await response.json();
+          setIsAuthenticated(true); // Atualiza o estado se o usuário está autenticado
+        } else {
+          router.push('/auth/login'); // Redireciona para login se não autenticado
+        }
+      } catch (error) {
+        console.error('Error checking authentication:', error);
+        router.push('/auth/login'); // Redireciona em caso de erro
+      } finally {
+        setIsAuthenticating(false);
+      }
+    };
+
+    checkAuth();
   }, [pathname, router]);
-
-  // Enquanto verifica autenticação, não renderiza nada
-  if (isAuthenticating) {
-    return null;
-  }
 
   return (
     <html lang="en">
