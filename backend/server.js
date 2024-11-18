@@ -1,4 +1,5 @@
 import express, { urlencoded } from "express";
+import cors from 'cors';
 import authRoutes from "./routes/auth.js";
 import usersRoutes from "./routes/users.js";
 import dotenv from "dotenv";
@@ -10,6 +11,13 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 // Creating Application
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:3000',// alows front requests
+    credentials: true,
+  }));
+
+
 // Adding middlewares
 app.use(express.json()); // Handles API requests with JSON body
 app.use(express.urlencoded({ extended: true })); //Allows parsing request data from URL encoding
