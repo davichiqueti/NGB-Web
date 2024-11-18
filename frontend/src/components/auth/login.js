@@ -1,13 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from "next/link"
 
 const LoginForm = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const router = useRouter();
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [error, setError] = useState('');
+
+  // Verifica se o usuário já está autenticado
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      router.push('/'); // Redireciona para uma rota protegida
+    }
+  }, [router]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,34 +23,33 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await fetch('http://localhost:8000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        credentials: 'include',
       });
 
       if (response.ok) {
-        const data = await response.json();
-        alert(data.message); // Mensagem de sucesso
-        // Redirecionar ou armazenar token
+        alert('Login successful!');
+        router.push('/'); // Redireciona para uma rota protegida
       } else {
         const error = await response.json();
-        alert(error.error); // Mensagem de erro
+        setError(error.error);
       }
     } catch (err) {
-      console.error("Erro ao fazer login:", err);
+      setError('Something went wrong. Please try again.');
     }
   };
 
   return (
 
     <>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <h1>Login</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-black">
+        <h1 className='text-white'>Login</h1>
         <input
           type="text"
           name="username"
@@ -59,7 +66,7 @@ const LoginForm = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit" className='text-white'>Login</button>
       </form>
 
       <Link href="/auth/signup"> Don't have as account? Signup </Link>

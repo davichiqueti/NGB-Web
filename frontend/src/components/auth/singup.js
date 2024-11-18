@@ -1,15 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link'
 
 const SignupForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    full_name: "",
-    username: "",
-    email: "",
-    password: "",
+    full_name: '',
+    username: '',
+    email: '',
+    password: '',
   });
+  const [error, setError] = useState('');
+
+  // Verifica se o usuário já está autenticado
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      router.push('/dashboard'); // Redireciona para uma rota protegida
+    }
+  }, [router]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,26 +28,25 @@ const SignupForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
     try {
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await fetch('http://localhost:8000/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        credentials: 'include',
       });
 
       if (response.ok) {
-        const data = await response.json();
-        alert(data.message); // Mensagem de sucesso
-        // Redirecionar ou outra ação
+        alert('Signup successful! Please login.');
+        router.push('/auth/login'); // Redireciona para a página de login
       } else {
         const error = await response.json();
-        alert(error.error); // Mensagem de erro
+        setError(error.error);
       }
     } catch (err) {
-      console.error("Erro ao criar conta:", err);
+      setError('Something went wrong. Please try again.');
     }
   };
 
