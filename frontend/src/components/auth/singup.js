@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { signup, isAuthenticated } from '../../../services/authService';
 import Link from 'next/link'
 
 const SignupForm = () => {
@@ -14,12 +15,11 @@ const SignupForm = () => {
   });
   const [error, setError] = useState('');
 
-  // Verifica se o usuário já está autenticado
+  // check if user is authenticated
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      router.push('/dashboard'); // Redireciona para uma rota protegida
-    }
+      if (isAuthenticated()){
+        router.push('/'); //redirect to home
+      }
   }, [router]);
 
   const handleChange = (e) => {
@@ -31,22 +31,11 @@ const SignupForm = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        alert('Signup successful! Please login.');
-        router.push('/auth/login'); // Redireciona para a página de login
-      } else {
-        const error = await response.json();
-        setError(error.error);
-      }
-    } catch (err) {
-      setError('Something went wrong. Please try again.');
+      await signup(formData)
+      alert('Login successful!');
+      router.push('/'); // Redirect to home
+    } catch(err){
+      setError(err.message)
     }
   };
 

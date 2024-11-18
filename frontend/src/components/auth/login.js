@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [error, setError] = useState('');
 
   // verify if usar is authenticated
-  useEffect(() => {
+  useEffect(() => { 
     if (isAuthenticated()) {
       router.push('/'); // redirect to home
     }
