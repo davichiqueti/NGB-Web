@@ -10,7 +10,7 @@ import Header from "@/components/navigation/mobile/header/header.js";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
-  const pathname = usePathname(); // Identifica a rota atual
+  const pathname = usePathname(); // Obtem a rota atual
   const [isAuthenticating, setIsAuthenticating] = useState(true);
 
   // Rotas públicas que não precisam de autenticação
@@ -20,21 +20,23 @@ export default function RootLayout({ children }) {
     const token = localStorage.getItem('token');
 
     if (publicRoutes.includes(pathname)) {
-      // Permite acesso às rotas públicas sem autenticação
+      // Permite acesso às rotas públicas sem verificar o token
       setIsAuthenticating(false);
       return;
     }
 
     if (token) {
-      setIsAuthenticating(false); // Autenticação confirmada
+      // Usuário autenticado
+      setIsAuthenticating(false);
     } else {
-      router.push('/auth/login'); // Redireciona para login
+      // Redireciona para login se o token não existir
+      router.push('/auth/login');
     }
   }, [pathname, router]);
 
-  // Aguarda a verificação antes de renderizar
+  // Enquanto verifica autenticação, não renderiza nada
   if (isAuthenticating) {
-    return null; // Não renderiza nada enquanto verifica a autenticação
+    return null;
   }
 
   return (

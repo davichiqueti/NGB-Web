@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from 'next/link'
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +41,9 @@ const SignupForm = () => {
   };
 
   return (
+
+    <>
+    
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <h1>Signup</h1>
       <input
@@ -76,6 +80,10 @@ const SignupForm = () => {
       />
       <button type="submit">Create Account</button>
     </form>
+
+    <Link href='/auth/login'> Already have an account? login</Link>
+
+    </>
   );
 };
 
