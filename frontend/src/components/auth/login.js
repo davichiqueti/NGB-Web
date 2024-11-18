@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from "next/link"
+import { login, isAuthenticated } from '../../../services/authService';
+import Link from 'next/link';
 
 const LoginForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 
-  // Verifica se o usuário já está autenticado
+  // verify if usar is authenticated
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      router.push('/'); // Redireciona para uma rota protegida
+    if (isAuthenticated()) {
+      router.push('/'); // redirect to home
     }
   }, [router]);
 
@@ -26,30 +26,18 @@ const LoginForm = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        alert('Login successful!');
-        router.push('/'); // Redireciona para uma rota protegida
-      } else {
-        const error = await response.json();
-        setError(error.error);
-      }
+      await login(formData.username, formData.password);
+      alert('Login successful!');
+      router.push('/'); // Redirect to home
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError(err.message);
     }
   };
 
   return (
-
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-black">
-        <h1 className='text-white'>Login</h1>
+        <h1 className="text-white">Login</h1>
         <input
           type="text"
           name="username"
@@ -66,11 +54,12 @@ const LoginForm = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit" className='text-white'>Login</button>
+        <button type="submit" className="text-white">
+          Login
+        </button>
       </form>
 
-      <Link href="/auth/signup"> Don't have as account? Signup </Link>
-
+      <Link href="/auth/signup"> Don't have an account? Signup </Link>
     </>
   );
 };
