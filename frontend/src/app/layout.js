@@ -13,25 +13,25 @@ export default function RootLayout({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const publicRoutes = ['/login', '/signup']; // Defina suas rotas públicas
+  const publicRoutes = ['/login', '/signup'];
 
   useEffect(() => {
     const validateAuth = async () => {
       if (publicRoutes.includes(pathname)) {
-        setIsLoading(false); // Ignora validação para rotas públicas
+        setIsLoading(false); 
         return;
       }
 
       try {
-        const authResult = await checkAuth(); // Verifica a autenticação
+        const authResult = await checkAuth();
         if (authResult.isAuthenticated) {
-          setIsAuthenticated(true); // Atualiza o estado para autenticado
+          setIsAuthenticated(true);
         } else {
-          router.push('/login'); // Redireciona para login se não autenticado
+          router.push('/login');
         }
       } catch (error) {
         console.error('Erro na validação de autenticação:', error);
-        router.push('/login'); // Redireciona em caso de erro
+        router.push('/login');
       } finally {
         setIsLoading(false);
       }
@@ -40,25 +40,23 @@ export default function RootLayout({ children }) {
     validateAuth();
   }, [pathname, router]);
 
-  if (isLoading) {
-    return <div className="flex items-center justify-center min-h-screen text-white">Carregando...</div>;
-  }
-
   if (!isAuthenticated && !publicRoutes.includes(pathname)) {
-    return null; // Evita renderizar conteúdo durante o redirecionamento
+    return null;
   }
 
   return (
     <html lang="en">
+
       <body className="bg-gray-800 text-white flex flex-col min-h-screen">
-        {!publicRoutes.includes(pathname) && <Header />} {/* Apenas para rotas protegidas */}
+
+        {!publicRoutes.includes(pathname) && <Header />}
         <div className="flex flex-grow">
           {!publicRoutes.includes(pathname) && <Aside className="hidden sm-500:block" />}
           <main className="flex-grow sm-500:ml-24 sm:ml-32 md:ml-36 md-900:ml-40 lg:ml-64 xl:ml-72 2xl:ml-80 p-4">
             {children}
           </main>
         </div>
-        {!publicRoutes.includes(pathname) && <Footer />} {/* Apenas para rotas protegidas */}
+        {!publicRoutes.includes(pathname) && <Footer />}
       </body>
     </html>
   );
