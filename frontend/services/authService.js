@@ -1,4 +1,11 @@
 
+  // Function to check if the user is authenticated
+  export const isAuthenticated = () => {
+    const token = localStorage.getItem('token');
+    return Boolean(token);
+  };
+
+
 export const login = async (username, password) => {
     // login process
     try {
@@ -42,10 +49,22 @@ export const login = async (username, password) => {
       throw new Error(error.message || 'Failed to signup');
     }
   }
-
-  // Function to check if the user is authenticated
-  export const isAuthenticated = () => {
-    const token = localStorage.getItem('token');
-    return Boolean(token);
-  };
   
+  export const checkAuth = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/auth/authcheck', {
+        method: 'GET',
+        credentials: 'include', // Inclui cookies na requisição
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        return { isAuthenticated: true, user: data.user }; // Retorna estado e dados do usuário
+      } else {
+        return { isAuthenticated: false };
+      }
+    } catch (error) {
+      console.error('Error checking authentication:', error);
+      return { isAuthenticated: false };
+    }
+  };
