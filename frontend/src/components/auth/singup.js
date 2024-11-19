@@ -80,7 +80,7 @@ const SignupForm = () => {
       <button type="submit" className="text-white">Create Account</button>
     </form>
 
-    <Link href='/auth/login'> Already have an account? login</Link>
+    <Link href='/login'> Already have an account? login</Link>
 
     </>
   );

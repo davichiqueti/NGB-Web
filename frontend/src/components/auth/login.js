@@ -59,7 +59,7 @@ const LoginForm = () => {
         </button>
       </form>
 
-      <Link href="/auth/signup"> Don't have an account? Signup </Link>
+      <Link href="/signup"> Don't have an account? Signup </Link>
     </>
   );
 };
