@@ -3,24 +3,17 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { logoutUser } from '../../../../../services/userServices';
 
 export default function LogoutButton() {
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        router.push('/login');
-      } else {
-        console.error('Erro ao fazer logout:', response.statusText);
-      }
+      await logoutUser();
+      router.push('/auth/login');
     } catch (error) {
-      console.error('Erro na requisição de logout:', error);
+      console.error('Erro ao fazer logout:', error.message);
     }
   };
 
