@@ -8,8 +8,7 @@ export default function Aside() {
     return (
         <aside className="hidden sm-500:block fixed left-0 top-0 h-full
                             sm-500:w-24 sm:w-32 md:w-36 md-900:w-40 lg:w-64 xl:w-72 2xl:w-80
-                            border-r border-slate-400
-                            flex flex-col
+                            border-r border-slate-400 flex-col
                             py-8 space-y-3">
 
             <div id="nav" className="flex flex-col items-center space-y-8 lg:items-start">
