@@ -12,16 +12,25 @@ export default function ProfileInfo({ user }) {
             width={100}
             height={100}
             className="rounded-full"
+            priority 
           />
         ) : (
           <div
-            className="w-[100px] h-[100px] bg-gray-200 rounded-full flex items-center justify-center"
+            className="w-[100px] h-[100px] rounded-full flex items-center justify-center"
           >
-            <span className="text-gray-500">Sem foto</span>
+            <Image 
+              src={'/defaultuser.png'}
+              alt="Foto de Perfil"
+              width={100}
+              height={100}
+              className="rounded-full"
+              priority 
+            />
           </div>
         )}
+        
         <h1 className="text-xl font-bold ">{user.full_name}</h1>
-        <p>@{user.username}</p>
+        <p className='font-thin'>@{user.username}</p>
         <br></br>
         <p>Bio: {user.bio}</p>
         </div>
