@@ -32,11 +32,11 @@ export default function EditProfileModal({ user, onClose, onUserUpdate }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-lg w-1/2">
-        <h2 className="text-xl mb-4 text-black">Editar Perfil</h2>
+      <div className="bg-gray-700 p-6 rounded shadow-lg w-1/2">
+        <h2 className="text-xl mb-4 text-white">Editar Perfil</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-black">Nome Completo:</label>
+            <label className="block text-white">Nome Completo:</label>
             <input
               type="text"
               name="full_name"
@@ -46,7 +46,7 @@ export default function EditProfileModal({ user, onClose, onUserUpdate }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-black">Nome de Usuário:</label>
+            <label className="block text-white">Nome de Usuário:</label>
             <input
               type="text"
               name="username"
@@ -56,7 +56,7 @@ export default function EditProfileModal({ user, onClose, onUserUpdate }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-black">E-mail:</label>
+            <label className="block text-white">E-mail:</label>
             <input
               type="email"
               name="email"
@@ -66,7 +66,7 @@ export default function EditProfileModal({ user, onClose, onUserUpdate }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-black">Bio:</label>
+            <label className="block text-white">Bio:</label>
             <textarea
               name="bio"
               value={formData.bio}
