@@ -29,3 +29,28 @@ export async function logoutUser() {
 
   return response.json();
 }
+
+
+export async function updateUser(formData) {
+  const response = await fetch('http://localhost:8000/api/users/update', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    try {
+      const errorData = JSON.parse(errorText);
+      throw new Error(errorData.error || 'Falha ao atualizar informações');
+    } catch {
+      console.error('Resposta não JSON recebida:', errorText);
+      throw new Error('Falha ao atualizar informações');
+    }
+  }
+
+  return response.json();
+}
