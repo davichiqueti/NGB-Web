@@ -22,7 +22,7 @@ export default function UpdateButton({ user, onUserUpdate }) {
       <button 
         onClick={handleUpdate}
         className='
-          bg-slate-600 hover:bg-slate-700
+          bg-slate-600 hover:bg-slate-700 mr-2
           text-white font-bold py-2 px-4 rounded'
         >
         Editar Perfil

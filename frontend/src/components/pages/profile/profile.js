@@ -13,10 +13,12 @@ export default function Profile({ user }) {
   };
 
   return (
-    <>
+    <div className='flex flex-col'>
       <ProfileInfo user={userData} />
-      <UpdateButton user={userData} onUserUpdate={handleUserUpdate} />
-      <LogoutButton />
-    </>
+      <div >
+        <UpdateButton user={userData} onUserUpdate={handleUserUpdate} />
+        <LogoutButton />
+      </div>
+    </div>
   );
 }

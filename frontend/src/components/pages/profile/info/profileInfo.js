@@ -30,9 +30,9 @@ export default function ProfileInfo({ user }) {
         )}
         
         <h1 className="text-xl font-bold ">{user.full_name}</h1>
-        <p className='font-thin'>@{user.username}</p>
-        <br></br>
-        <p>Bio: {user.bio}</p>
+        <p className='font-thin mb-4'>@{user.username}</p>
+        
+        <p className="mb-4">Bio: {user.bio}</p>
         </div>
 
     </>
