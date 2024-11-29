@@ -13,9 +13,11 @@ export default function Profile({ user }) {
   };
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col max-w-3xl h-screen
+                    border-r border-slate-400'>
+
       <ProfileInfo user={userData} />
-      <div >
+      <div className='px-4'>
         <UpdateButton user={userData} onUserUpdate={handleUserUpdate} />
         <LogoutButton />
       </div>
