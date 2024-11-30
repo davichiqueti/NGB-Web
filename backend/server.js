@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/notifications", notificationsRoutes);
+app.use("/api/notifications", notificationRoutes);
 // Exposing APP
 app.listen(8000, () => {
         console.log("Server running on port 8000");
