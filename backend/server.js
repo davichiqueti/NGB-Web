@@ -2,6 +2,7 @@ import express, { urlencoded } from "express";
 import cors from 'cors';
 import authRoutes from "./routes/auth.js";
 import usersRoutes from "./routes/users.js";
+import postRoutes from "./routes/posts.js";
 import dotenv from "dotenv";
 import connectMongoDB from "./database/connectMongoDB.js";
 import cookieParser from "cookie-parser";
@@ -25,6 +26,7 @@ app.use(cookieParser());
 // Setting routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/posts", postRoutes);
 // Exposing APP
 app.listen(8000, () => {
         console.log("Server running on port 8000");
