@@ -1,0 +1,3 @@
+MONGO_URI = "mongodb+srv://dev:UTAwaqtSf7NfmHct@cluster0.dn8ed.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+JWT_SECRET = "5XC9Yo7WxDtdlHiAZsmWY4aLLE8WpYLjkSnGQbvuEw0="
+NODE_ENV = "development"
