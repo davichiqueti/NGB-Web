@@ -50,7 +50,7 @@ export default function RootLayout({ children }) {
           
           {!isPublicRoute && <Aside className="hidden sm-500:block" />}
 
-          <main className={`flex-grow ${!isPublicRoute ? 'sm-500:ml-24 sm:ml-32 md:ml-36 md-900:ml-40 lg:ml-64 xl:ml-72 2xl:ml-80 p-4' : ''}`}>
+          <main className={`flex-grow ${!isPublicRoute ? 'sm-500:ml-24 sm:ml-32 md:ml-36 md-900:ml-40 lg:ml-64 xl:ml-72 2xl:ml-80 ' : ''}`}>
             {children}
           </main>
 
