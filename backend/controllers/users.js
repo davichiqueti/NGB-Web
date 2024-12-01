@@ -105,13 +105,26 @@ export const updateUserProfile = async (req, res) => {
         }
         // Email update
         if (email) {
+            // Checking if email is alredy in use
+            const existing_email = await User.findOne({ email: email });
+            if (existing_email) {
+                return res.status(400).json({ error: "Email is alredy in use" });
+            }
             if (!validateEmail(email)) {
                 return res.status(400).json({ error: "Invalid email format" });
             }
             user.email = email;
         }
+        // Username update
+        if (username){
+            // Checking if username is alredy in use
+            const existing_user = await User.findOne({ username: username });
+            if (existing_user) {
+                return res.status(400).json({ error: "Username is alredy in use" });
+            }
+            user.username = email;
+        }
         // Updating other fields
-        user.username = username || user.username;
         user.full_name = full_name || user.full_name;
         user.bio = bio || user.bio;
         user.profile_img = profile_img || user.profile_img;
