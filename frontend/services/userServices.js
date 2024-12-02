@@ -1,6 +1,7 @@
 'use server'
 
 import { cookies } from "next/headers";
+import { FaStumbleuponCircle } from "react-icons/fa6";
 
 
 export async function getUserData(jwt) {
@@ -81,4 +82,28 @@ export async function getOtherUserProfile(username) {
     console.error('Erro ao buscar perfil do usuário:', error);
     throw error;
   }
+}
+
+export async function toggleFollowUser(userId) {
+
+  const jwt = (await cookies()).get('jwt').value
+
+  try {
+    const response = await fetch(`http://localhost:8000/api/users/toggle-follow/${userId}`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        Cookie: `jwt=${jwt}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro ao toggle-follow : ${response.status} - ${response.statusText}`);
+    }
+
+  } catch (error) {
+    console.error('Erro ao toggle perfil:', error);
+    throw error;
+  }
+
 }

@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import ProfileInfo from '@/components/pages/profile/info/profileInfo';
 import LogoutButton from '@/components/pages/profile/logoutBtn/logoutbtn';
 import UpdateButton from '@/components/pages/profile/updateBtn/updatebtn';
+import FollowButton from '@/components/pages/profile/follwBtn/followBtn'
 
-export default function Profile({ user, isLogged }) {
+export default function Profile({ user, isLogged, id }) {
   const [userData, setUserData] = useState(user);
 
   const handleUserUpdate = (updatedUser) => {
@@ -24,6 +25,12 @@ export default function Profile({ user, isLogged }) {
           <LogoutButton />
         </div> 
       :
+        <></>
+      }
+
+      {id ?
+        <FollowButton id={id}/>
+        :
         <></>
       }
       

@@ -13,9 +13,12 @@ export default async function UserProfilePage({ params }) {
         redirect('/404');
     }
 
+    const userId = userProfile.user._id;
+
+
     return (
       <div>
-        <Profile user={userProfile.user} isLogged={false} />
+        <Profile user={userProfile.user} isLogged={false} id={userId} />
       </div>
     );
   } catch (error) {
