@@ -25,13 +25,9 @@ export default function Profile({ user, isLogged, id }) {
           <LogoutButton />
         </div> 
       :
-        <></>
-      }
-
-      {id ?
-        <FollowButton id={id}/>
-        :
-        <></>
+        <div className='px-4'>
+          <FollowButton id={id}/>
+        </div>
       }
       
     </div>

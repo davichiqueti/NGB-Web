@@ -85,25 +85,25 @@ export async function getOtherUserProfile(username) {
 }
 
 export async function toggleFollowUser(userId) {
-
-  const jwt = (await cookies()).get('jwt').value
+  const jwt = (await cookies()).get('jwt').value;
 
   try {
     const response = await fetch(`http://localhost:8000/api/users/toggle-follow/${userId}`, {
       method: 'POST',
-      credentials: 'include',
       headers: {
         Cookie: `jwt=${jwt}`
-      }
+      },
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error(`Erro ao toggle-follow : ${response.status} - ${response.statusText}`);
+      throw new Error(`Erro ao toggle-follow: ${data.error}`);
     }
 
+    return data;
   } catch (error) {
     console.error('Erro ao toggle perfil:', error);
     throw error;
   }
-
 }
