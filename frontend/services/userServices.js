@@ -63,8 +63,6 @@ export async function getOtherUserProfile(username) {
 
   const jwt = (await cookies()).get('jwt').value
 
-  console.log("Nome do usario", username)
-
   try {
     const response = await fetch(`http://localhost:8000/api/users/profile/${username}`, {
       method: 'GET',
@@ -73,8 +71,6 @@ export async function getOtherUserProfile(username) {
         Cookie: `jwt=${jwt}`
       }
     });
-
-    console.log('Headers enviados:', response.headers);
 
     if (!response.ok) {
       throw new Error(`Erro ao buscar perfil: ${response.status} - ${response.statusText}`);

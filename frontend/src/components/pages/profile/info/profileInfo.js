@@ -9,7 +9,7 @@ export default function ProfileInfo({ user }) {
           <Image
             src={user.banner_img || '/cover.jpg'}
             alt="Banner do Perfil"
-            layout="fill"
+            fill
             objectFit="cover"
             priority
           />

@@ -6,9 +6,7 @@ export default async function UserProfilePage({ params }) {
   const { username } = await params;
 
   try {
-    
     const userProfile = await getOtherUserProfile(username);
-    console.log('Resposta da API:', userProfile);
 
     if (!userProfile || !userProfile.user) {
         console.error('Perfil não encontrado ou resposta inválida:', userProfile);
@@ -17,14 +15,7 @@ export default async function UserProfilePage({ params }) {
 
     return (
       <div>
-        <Profile user={userProfile.user} />
-        <div className="px-4 mt-4">
-          {userProfile.is_following ? (
-            <button className="btn btn-danger">Unfollow</button>
-          ) : (
-            <button className="btn btn-primary">Follow</button>
-          )}
-        </div>
+        <Profile user={userProfile.user} isLogged={false} />
       </div>
     );
   } catch (error) {
