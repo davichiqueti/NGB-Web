@@ -1,3 +1,7 @@
+'use server'
+
+import { cookies } from "next/headers";
+
 
 export async function getUserData(jwt) {
     const response = await fetch(`http://localhost:8000/api/auth/authcheck`, {
@@ -53,4 +57,32 @@ export async function updateUser(formData) {
   }
 
   return response.json();
+}
+
+export async function getOtherUserProfile(username) {
+
+  const jwt = (await cookies()).get('jwt').value
+
+  console.log("Nome do usario", username)
+
+  try {
+    const response = await fetch(`http://localhost:8000/api/users/profile/${username}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        Cookie: `jwt=${jwt}`
+      }
+    });
+
+    console.log('Headers enviados:', response.headers);
+
+    if (!response.ok) {
+      throw new Error(`Erro ao buscar perfil: ${response.status} - ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Erro ao buscar perfil do usuário:', error);
+    throw error;
+  }
 }
