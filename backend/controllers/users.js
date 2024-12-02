@@ -7,11 +7,19 @@ import { validateEmail } from "../lib/utils/validateEmail.js";
 export const getUserProfile = async (req, res) => {
     try {
         const username = req.params.username;
-        const user = await User.findOne({username}).select("-password");
-        if (!user) {
+        const searched_user = await User.findOne({username}).select("-password");
+        if (!searched_user) {
             return res.status(404).json({message: "User not found"});
         }
-        res.status(200).json(user);
+        // Checking following status
+        const searched_user_id = searched_user._id.toString();
+        let is_follower = req.user.followers.includes(searched_user_id);
+        let is_following = req.user.following.includes(searched_user_id);
+        res.status(200).json({
+            user: searched_user,
+            is_follower: is_follower,
+            is_following: is_following
+        });
     } catch (error) {
         console.log(`Error in getUserProfile controller: "${error.message}"`);
         res.status(500).json({error: `Internal Server Error: "${error.message}"`});
