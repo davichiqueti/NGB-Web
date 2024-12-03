@@ -1,6 +1,6 @@
 export const getNotifications = async (req, res) => {
 
-    try{
+    try {
         const userId = req.user._id;
 
         const notifications = await Notification.find({to:userId}).populate({
@@ -11,7 +11,7 @@ export const getNotifications = async (req, res) => {
         await Notification.updateMany({to:userId}, {read:true});
 
         res.status(200).json(notifications);
-    }   catch (error){
+    } catch (error) {
         console.log("Error in getNotifications", error.message);
         res.status(500).json({ error: "Internal Server Error"});
     }
@@ -36,7 +36,7 @@ export const deleteNotification = async (req, res) => {
         const userId = req.user._id;
         const notification = await Notification.findById(notificationId);
 
-        if(!notification){
+        if(!notification) {
             return res.status(404).json({error: "Notification not found"})
         }
 
@@ -46,7 +46,7 @@ export const deleteNotification = async (req, res) => {
 
         await Notification.findByIdAndDelete(notificationId);
         res.status(200).json({ message: "Notification deleted"});
-    }   catch(error){
+    } catch(error) {
         console.log("Error in deleteNotification", error.message);
         res.status(500).json({error: "Internal Server Error"});
     }
