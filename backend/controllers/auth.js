@@ -1,7 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from 'bcryptjs';
 import { generateUserToken } from '../lib/utils/generateUserToken.js';
-import { validateEmail } from '../lib/utils/validateEmail.js';
+import { validateEmail, validateUsername, validatePassword } from '../lib/utils/fieldValidators.js';
 
 export const signup = async (req, res) => {
     try {
@@ -10,13 +10,20 @@ export const signup = async (req, res) => {
             const error_message = "Missing one or more of required info (full_name, username, email, password)";
             return res.status(400).json({ error: error_message });
         }
-        // Checking password lenght
-        if (password.length < 6) {
-            return res.status(400).json({ error: "Password must have at least 6 characters" });
+        // Validating username format
+        const username_validation = validateUsername(username); 
+        if (!username_validation.isValid) {
+            return res.status(400).json({ error: username_validation.message });
         }
-        // Checking email pattern
-        if (!validateEmail(email)) {
-            return res.status(400).json({ error: "Invalid email format" });
+        // Validating password format
+        const password_validation = validatePassword(password); 
+        if (!password_validation.isValid) {
+            return res.status(400).json({ error: password_validation.message });
+        }
+        // Validating Email format
+        const email_validation = validateEmail(email); 
+        if (!email_validation.isValid) {
+            return res.status(400).json({ error: email_validation.message });
         }
         // Checking if username is alredy in use
         const existing_user = await User.findOne({ username: username });
