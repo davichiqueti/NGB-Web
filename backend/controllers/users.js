@@ -112,7 +112,7 @@ export const updateUserProfile = async (req, res) => {
             user.password = await bcrypt.hash(new_password, salt);
         }
         // Email update
-        if (email) {
+        if (email && (email != user.email)) {
             // Checking if email is alredy in use
             const existing_email = await User.findOne({ email: email });
             if (existing_email) {
@@ -124,7 +124,7 @@ export const updateUserProfile = async (req, res) => {
             user.email = email;
         }
         // Username update
-        if (username){
+        if (username && (username != user.username)){
             // Checking if username is alredy in use
             const existing_user = await User.findOne({ username: username });
             if (existing_user) {

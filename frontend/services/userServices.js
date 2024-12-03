@@ -42,14 +42,9 @@ export async function updateUser(formData) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    try {
-      const errorData = JSON.parse(errorText);
-      throw new Error(errorData.error || 'Falha ao atualizar informações');
-    } catch {
-      console.error('Resposta não JSON recebida:', errorText);
-      throw new Error('Falha ao atualizar informações');
-    }
+    const response_data = await response.json();
+    console.log(response_data.error);
+    throw new Error(response_data.error || 'Falha ao atualizar informações');
   }
 
   return response.json();
