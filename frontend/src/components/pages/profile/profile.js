@@ -15,7 +15,7 @@ export default function Profile({ user, isLogged, id }) {
 
   return (
     <div className='flex flex-col max-w-3xl h-screen
-                    border-r border-slate-400'>
+                    md-900:border-r md-900:border-slate-400'>
 
       <ProfileInfo user={userData}/>
 
@@ -29,7 +29,7 @@ export default function Profile({ user, isLogged, id }) {
           <FollowButton id={id}/>
         </div>
       }
-      
+            
     </div>
   );
 }
