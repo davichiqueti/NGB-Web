@@ -6,7 +6,7 @@ import LogoutButton from '@/components/pages/profile/logoutBtn/logoutbtn';
 import UpdateButton from '@/components/pages/profile/updateBtn/updatebtn';
 import FollowButton from '@/components/pages/profile/follwBtn/followBtn'
 
-export default function Profile({ user, isLogged, id }) {
+export default function Profile({ user, isLogged, isFollowed }) {
   const [userData, setUserData] = useState(user);
 
   const handleUserUpdate = (updatedUser) => {
@@ -26,7 +26,7 @@ export default function Profile({ user, isLogged, id }) {
         </div> 
       :
         <div className='px-4'>
-          <FollowButton id={id}/>
+          <FollowButton  id={user._id} followStatus={isFollowed} />
         </div>
       }
             

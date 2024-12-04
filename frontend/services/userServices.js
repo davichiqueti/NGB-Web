@@ -1,8 +1,6 @@
 'use server'
 
 import { cookies } from "next/headers";
-import { FaStumbleuponCircle } from "react-icons/fa6";
-
 
 export async function getUserData(jwt) {
     const response = await fetch(`http://localhost:8000/api/auth/authcheck`, {
@@ -96,6 +94,8 @@ export async function toggleFollowUser(userId) {
     });
 
     const data = await response.json();
+
+    console.log(data)
 
     if (!response.ok) {
       throw new Error(`Erro ao toggle-follow: ${data.error}`);

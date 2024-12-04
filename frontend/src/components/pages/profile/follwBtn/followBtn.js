@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { toggleFollowUser } from '../../../../../services/userServices';
 
-export default function FollowButton({ id }) {
-  const [isFollowing, setIsFollowing] = useState(false);
+export default function FollowButton({ id, followStatus }) {
+
+  const [isFollowing, setIsFollowing] = useState(followStatus);
   const [loading, setLoading] = useState(false);
 
   const handleFollow = async () => {

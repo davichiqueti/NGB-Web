@@ -11,14 +11,11 @@ export default async function UserProfilePage({ params }) {
     if (!userProfile || !userProfile.user) {
         console.error('Perfil não encontrado ou resposta inválida:', userProfile);
         redirect('/404');
-    }
-
-    const userId = userProfile.user._id;
-
+    }   
 
     return (
       <div>
-        <Profile user={userProfile.user} isLogged={false} id={userId} />
+        <Profile user={userProfile.user} isLogged={false} isFollowed={userProfile.is_following} />
       </div>
     );
   } catch (error) {
