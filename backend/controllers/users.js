@@ -65,11 +65,13 @@ export const toggleFollowUser = async (req, res) => {    const {username} = req.
         }
         // Logic to toggle following
         let message;
+        let following;
         if (user.following.includes(target_id)) {
             // Unfollow
             await User.findByIdAndUpdate(target_id, { $pull: { followers: user.id}});
             await User.findByIdAndUpdate(user.id, { $pull: { following: target_id}});
             message = `User "${target_user.username}" unfollowed successfully`;
+            following = false;
         } else {
             // Follow
             await User.findByIdAndUpdate(target_id, { $push: { followers: user.id}});
@@ -83,8 +85,9 @@ export const toggleFollowUser = async (req, res) => {    const {username} = req.
             await notification.save();
             user.password = null; // Only removing password from response
             message = `User "${target_user.username}" followed successfully`;
+            following = true;
         }
-        res.status(200).json({ user_id: target_id, message: message});
+        res.status(200).json({user_id: target_id, message: message, following: following});
     } catch (error) {
         console.log(`Error in toggleFollowUser controller: "${error.message}"`);
         res.status(500).json({error: `Internal Server Error: "${error.message}"`});

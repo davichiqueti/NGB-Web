@@ -22,7 +22,7 @@ export default async function ProfilePage() {
 
     return (
       <div>
-        <Profile user={user} />
+        <Profile user={user} isLogged={true} />
       </div>
     );
   } catch (error) {
