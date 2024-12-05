@@ -16,7 +16,6 @@
   "type": "module",
   "license": "ISC",
   "dependencies": {
-    "next": "15.0.3",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.1",
     "cookie-parser": "^1.4.6",
