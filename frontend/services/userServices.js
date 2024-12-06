@@ -20,9 +20,13 @@ export async function getUserData(jwt) {
   
 
 export async function logoutUser() {
-  const response = await fetch('/api/auth/logout', {
+  const jwt = (await cookies()).get('jwt').value
+  const response = await fetch(`${process.env.BACKEND_URL}/api/auth/logout`, {
     method: 'POST',
     credentials: 'include',
+    headers: {
+      Cookie: `jwt=${jwt}`,
+    },
   });
 
   if (!response.ok) {
@@ -35,11 +39,13 @@ export async function logoutUser() {
 
 
 export async function updateUser(formData) {
+  const jwt = (await cookies()).get('jwt').value
   const response = await fetch('http://localhost:8000/api/users/update', {
     method: 'POST',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
+      Cookie: `jwt=${jwt}`
     },
     body: JSON.stringify(formData),
   });
