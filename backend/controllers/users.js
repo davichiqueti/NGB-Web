@@ -141,7 +141,7 @@ export const updateUserProfile = async (req, res) => {
             if (existing_user) {
                 return res.status(400).json({ error: "Username is alredy in use" });
             }
-            user.username = email;
+            user.username = username;
         }
         // Updating other fields
         user.full_name = full_name ?? user.full_name;
