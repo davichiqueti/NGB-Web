@@ -15,11 +15,21 @@ export const login = async (username, password) => {
         body: JSON.stringify({ username, password }),
         credentials: 'include',
       });
+
+      console.log("passou aqui")
   
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.error);
       }
+
+      const data = await response.json()
+      const token = data.token
+
+      console.log(data)
+      console.log(token)
+
+      console.log("passou tambem")
   
       return true; // Login successful
     } catch (error) {
