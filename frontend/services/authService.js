@@ -9,7 +9,7 @@
 export const login = async (username, password) => {
     // login process
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
+      const response = await fetch(`${process.env.BACKEND_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -32,7 +32,7 @@ export const login = async (username, password) => {
     const { full_name, username, email, password } = formData
     // signup process
     try {
-      const response = await fetch('http://localhost:8000/api/auth/signup', {
+      const response = await fetch(`${process.env.BACKEND_URL}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ full_name, username, email, password }),
@@ -52,7 +52,7 @@ export const login = async (username, password) => {
   
   export const checkAuth = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/auth/authcheck', {
+      const response = await fetch(`${process.env.BACKEND_URL}/api/auth/authcheck`, {
         method: 'GET',
         credentials: 'include', // Inclui cookies na requisição
       });

@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 
 export async function getUserData(jwt) {
-    const response = await fetch(`http://localhost:8000/api/auth/authcheck`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/auth/authcheck`, {
       method: 'GET',
       headers: {
         Cookie: `jwt=${jwt}`,
@@ -40,7 +40,7 @@ export async function logoutUser() {
 
 export async function updateUser(formData) {
   const jwt = (await cookies()).get('jwt').value
-  const response = await fetch('http://localhost:8000/api/users/update', {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/users/update`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -64,7 +64,7 @@ export async function getOtherUserProfile(username) {
   const jwt = (await cookies()).get('jwt').value
 
   try {
-    const response = await fetch(`http://localhost:8000/api/users/profile/${username}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/users/profile/${username}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -87,7 +87,7 @@ export async function toggleFollowUser(userId) {
   const jwt = (await cookies()).get('jwt').value;
 
   try {
-    const response = await fetch(`http://localhost:8000/api/users/toggle-follow/${userId}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/users/toggle-follow/${userId}`, {
       method: 'POST',
       headers: {
         Cookie: `jwt=${jwt}`

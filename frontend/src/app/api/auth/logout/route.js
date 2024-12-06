@@ -8,7 +8,7 @@ export async function POST(request) {
       ?.split('; ')
       .find((cookie) => cookie.startsWith('jwt='));
 
-    const response = await fetch(`http://localhost:8000/api/auth/logout`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

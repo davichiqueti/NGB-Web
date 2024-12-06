@@ -16,7 +16,10 @@ dotenv.config();
 const app = express();
 
 // Allow external requests
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_HOST,
+    credentials: true
+}));
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
