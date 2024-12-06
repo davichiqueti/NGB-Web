@@ -15,16 +15,14 @@ dotenv.config();
 // Creating Application
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:3000',// allows front requests
-    credentials: true,
-  }));
+// Allow external requests
+app.use(cors());
 
-  cloudinary.config({
+cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
+});
 
 // Adding middlewares
 app.use(express.json()); // Handles API requests with JSON body
