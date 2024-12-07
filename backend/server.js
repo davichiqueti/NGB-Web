@@ -1,19 +1,22 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+
+
 import express, { urlencoded } from "express";
 import cors from 'cors';
 import authRoutes from "./routes/auth.js";
 import usersRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
 import notificationRoutes from "./routes/notifications.js";
-import dotenv from "dotenv";
 import connectMongoDB from "./database/connectMongoDB.js";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
 
 
-// Loading environment variables from .env file
-dotenv.config();
 // Creating Application
 const app = express();
+console.log('FRONTEND_HOST carregada:', process.env.FRONTEND_HOST);
 
 // Allow external requests
 app.use(cors({
