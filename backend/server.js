@@ -16,7 +16,6 @@ import { v2 as cloudinary } from "cloudinary";
 
 // Creating Application
 const app = express();
-console.log('FRONTEND_HOST carregada:', process.env.FRONTEND_HOST);
 
 // Allow external requests
 app.use(cors({
