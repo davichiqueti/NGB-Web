@@ -1,5 +1,3 @@
-'post server';
-
 import { cookies } from "next/headers";
 
 
