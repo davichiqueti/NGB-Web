@@ -1,3 +1,5 @@
+'use server'
+
 import { cookies } from "next/headers";
 
 
@@ -43,7 +45,7 @@ export async function getFollowingPosts() {
 export async function createPost(postData) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/create`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

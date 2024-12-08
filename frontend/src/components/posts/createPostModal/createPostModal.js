@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-
+import { createPost } from '../../../../services/postServices';
 
 export default function CreatePostModal({ onClose }) {
   const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    
+    text: '',
+    img: '',
   });
 
   const handleChange = (e) => {
@@ -18,54 +17,55 @@ export default function CreatePostModal({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await createPost(formData);
-      alert('Post create successfully!');
-      
-      onClose();
+      // Chama o método createPost com os dados do formulário
+      await createPost(formData);  
+      alert('Post criado com sucesso!');
+      onClose(); 
     } catch (error) {
       console.error(error.message);
-      alert('Error when creating post.');
+      alert('Erro ao criar o post.');
     }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-gray-700 p-6 rounded shadow-lg w-1/2">
-        <h2 className="text-xl mb-4 text-white">Create new post</h2>
+        <h2 className="text-xl mb-4 text-white">Criar novo post</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-white">Title:</label>
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
+            <label className="block text-white">Texto:</label>
+            <textarea
+              name="text"
+              value={formData.text}
               onChange={handleChange}
               className="w-full border p-2 text-black"
+              placeholder="O que está acontecendo?"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-white">Content:</label>
-            <textarea
-              name="content"
-              value={formData.content}
+            <label className="block text-white">Imagem (URL):</label>
+            <input
+              type="text"
+              name="img"
+              value={formData.img}
               onChange={handleChange}
               className="w-full border p-2 text-black"
+              placeholder="Insira o link da imagem"
             />
           </div>
-          
           <div className="flex justify-end">
             <button
               type="button"
               onClick={onClose}
               className="mr-4 bg-gray-500 text-white py-2 px-4 rounded"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 rounded"
             >
-              Publish
+              Publicar
             </button>
           </div>
         </form>
