@@ -2,13 +2,12 @@
 
 import { cookies } from "next/headers";
 
-const BASE_URL = "http://localhost:8000/api/posts";
 
 // Obtém todos os posts 
 export async function getAllPosts() {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${BASE_URL}/all`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/all`, {
     method: "GET",
     headers: {
       Cookie: `jwt=${jwt}`,
@@ -27,7 +26,7 @@ export async function getAllPosts() {
 export async function getFollowingPosts() {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${BASE_URL}/following`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/following`, {
     method: "GET",
     headers: {
       Cookie: `jwt=${jwt}`,
@@ -46,7 +45,7 @@ export async function getFollowingPosts() {
 export async function createPost(postData) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${BASE_URL}/create`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +67,7 @@ export async function createPost(postData) {
 export async function likeUnlikePost(postId) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${BASE_URL}/like/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/like/${postId}`, {
     method: "POST",
     headers: {
       Cookie: `jwt=${jwt}`,
@@ -87,7 +86,7 @@ export async function likeUnlikePost(postId) {
 export async function commentOnPost(postId, commentData) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${BASE_URL}/comment/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/comment/${postId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -109,7 +108,7 @@ export async function commentOnPost(postId, commentData) {
 export async function deletePost(postId) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${BASE_URL}/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/${postId}`, {
     method: "DELETE",
     headers: {
       Cookie: `jwt=${jwt}`,
