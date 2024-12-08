@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import ProfileInfo from '@/components/pages/profile/info/profileInfo';
 import LogoutButton from '@/components/pages/profile/logoutBtn/logoutbtn';
 import UpdateButton from '@/components/pages/profile/updateBtn/updatebtn';
-import FollowButton from '@/components/pages/profile/follwBtn/followBtn'
+import FollowButton from '@/components/pages/profile/follwBtn/followBtn';
+import ProfilePosts from '@/components/pages/profile/profilePosts/profilePosts';
 
 export default function Profile({ user, isLogged, isFollowed }) {
   const [userData, setUserData] = useState(user);
@@ -28,6 +29,8 @@ export default function Profile({ user, isLogged, isFollowed }) {
           <FollowButton  id={user._id} followStatus={isFollowed} />
         </div>
       }
+
+      <ProfilePosts user={user} />
             
     </div>
   );
