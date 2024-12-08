@@ -22,6 +22,25 @@ export async function getAllPosts() {
   return await response.json();
 }
 
+// Obtém posts de um usuário específico
+export async function getUserPosts(userId) {
+  const jwt = (await cookies()).get("jwt")?.value;
+
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/user/${userId}`, {
+    method: "GET",
+    headers: {
+      Cookie: `jwt=${jwt}`,
+    },
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Falha ao obter posts do usuário");
+  }
+
+  return await response.json();
+}
+
 // Obtém posts dos usuários seguidos
 export async function getFollowingPosts() {
   const jwt = (await cookies()).get("jwt")?.value;
