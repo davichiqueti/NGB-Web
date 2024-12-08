@@ -82,3 +82,45 @@ export async function likeUnlikePost(postId) {
 
   return await response.json();
 }
+
+// Comentar em um post
+export async function commentOnPost(postId, commentData) {
+  const jwt = (await cookies()).get("jwt")?.value;
+
+  const response = await fetch(`${BASE_URL}/comment/${postId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: `jwt=${jwt}`,
+    },
+    credentials: "include",
+    body: JSON.stringify(commentData),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Falha ao comentar no post");
+  }
+
+  return await response.json();
+}
+
+// Deleta um post
+export async function deletePost(postId) {
+  const jwt = (await cookies()).get("jwt")?.value;
+
+  const response = await fetch(`${BASE_URL}/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Cookie: `jwt=${jwt}`,
+    },
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Falha ao deletar o post");
+  }
+
+  return await response.json();
+}
