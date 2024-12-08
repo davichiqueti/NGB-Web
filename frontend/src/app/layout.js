@@ -53,11 +53,12 @@ export default function RootLayout({ children }) {
 
           <main className={`flex-grow ${!isPublicRoute ? 'sm-500:ml-24 sm:ml-32 md:ml-36 md-900:ml-40 lg:ml-64 xl:ml-72 2xl:ml-80 ' : ''}`}>
 
-            <div className='max-w-3xl h-screen md-900:border-r md-900:border-slate-400'>
+            <div className={` ${!isPublicRoute ? "max-w-3xl h-screen md-900:border-r md-900:border-slate-400" : "" }`}>
               {children}
             </div>
+
+            {!isPublicRoute && <PostBtn />}
             
-            <PostBtn />
           </main>
 
         </div>
