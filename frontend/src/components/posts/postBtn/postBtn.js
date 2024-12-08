@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { MdPostAdd } from "react-icons/md";
-import CreatePostModal from './createPostModal/createPostModal.js'
+import CreatePostModal from '../createPostModal/createPostModal.js'
 
 export default function PostBtn() {
   const [isModalOpen, setIsModalOpen] = useState(false);

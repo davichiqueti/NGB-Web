@@ -8,7 +8,7 @@ import { checkAuth } from '../../services/authService';
 import Aside from "../components/navigation/aside/aside.js";
 import Footer from "@/components/navigation/mobile/footer/footer.js";
 import Header from "@/components/navigation/mobile/header/header.js";
-import PostBtn from "@/components/posts/postBtn.js"
+import PostBtn from "@/components/posts/postBtn/postBtn.js"
 
 export default function RootLayout({ children }) {
   const router = useRouter();

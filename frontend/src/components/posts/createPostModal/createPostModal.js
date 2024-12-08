@@ -43,7 +43,7 @@ export default function CreatePostModal({ onClose }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-white">Imagem (URL):</label>
+            <label className="block text-white">Imagem:</label>
             <input
               type="text"
               name="img"
