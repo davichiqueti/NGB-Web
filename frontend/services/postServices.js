@@ -63,3 +63,22 @@ export async function createPost(postData) {
 
   return await response.json();
 }
+
+// Curtir/descurtir um post
+export async function likeUnlikePost(postId) {
+  const jwt = (await cookies()).get("jwt")?.value;
+
+  const response = await fetch(`${BASE_URL}/like/${postId}`, {
+    method: "POST",
+    headers: {
+      Cookie: `jwt=${jwt}`,
+    },
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Falha ao curtir/descurtir o post");
+  }
+
+  return await response.json();
+}
