@@ -8,6 +8,7 @@ import { checkAuth } from '../../services/authService';
 import Aside from "../components/navigation/aside/aside.js";
 import Footer from "@/components/navigation/mobile/footer/footer.js";
 import Header from "@/components/navigation/mobile/header/header.js";
+import PostBtn from "@/components/posts/postBtn.js"
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -51,7 +52,12 @@ export default function RootLayout({ children }) {
           {!isPublicRoute && <Aside className="hidden sm-500:block" />}
 
           <main className={`flex-grow ${!isPublicRoute ? 'sm-500:ml-24 sm:ml-32 md:ml-36 md-900:ml-40 lg:ml-64 xl:ml-72 2xl:ml-80 ' : ''}`}>
-            {children}
+
+            <div className='max-w-3xl h-screen md-900:border-r md-900:border-slate-400'>
+              {children}
+            </div>
+            
+            <PostBtn />
           </main>
 
         </div>

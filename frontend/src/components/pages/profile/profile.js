@@ -14,8 +14,7 @@ export default function Profile({ user, isLogged, isFollowed }) {
   };
 
   return (
-    <div className='flex flex-col max-w-3xl h-screen
-                    md-900:border-r md-900:border-slate-400'>
+    <div className='flex flex-col '>
 
       <ProfileInfo user={userData}/>
 
