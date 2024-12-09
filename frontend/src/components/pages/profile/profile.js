@@ -79,7 +79,7 @@ export default function Profile({ user, isLogged, isFollowed }) {
         </div>
       )}
 
-      <ProfilePosts user={userData} />
+      <ProfilePosts username={user.username} />
 
       {/* Inputs de arquivo ocultos */}
       <input
