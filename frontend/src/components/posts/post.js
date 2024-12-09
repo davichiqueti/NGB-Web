@@ -12,6 +12,8 @@ import { toast } from "react-hot-toast";
 
 import LoadingSpinner from "../../../ultils/loadingSpinner/loadingspinner";
 import { formatPostDate } from "../../../ultils/date/date";
+import { deletePost } from '../../../services/postServices';
+import { likeUnlikePost } from '../../../services/postServices';
 
 const Post = ({ post: initialPost }) => {
   const { authUser } = useAuth();
@@ -21,6 +23,11 @@ const Post = ({ post: initialPost }) => {
   const [isLiking, setIsLiking] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
   const [error, setError] = useState(null);
+
+  // Verificar se `post` está disponível antes de acessar suas propriedades
+  if (!post || !post.user) {
+    return null;
+  }
 
   const postOwner = post.user;
   const isLiked = authUser ? post.likes.includes(authUser._id) : false;
@@ -32,11 +39,7 @@ const Post = ({ post: initialPost }) => {
     setIsDeleting(true);
     setError(null);
     try {
-      const res = await fetch(`/api/posts/${post._id}`, { method: "DELETE" });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
+      const res = await deletePost(post._id);
       toast.success("Post deleted successfully");
       setPost(null);
     } catch (err) {
@@ -52,11 +55,7 @@ const Post = ({ post: initialPost }) => {
     setIsLiking(true);
     setError(null);
     try {
-      const res = await fetch(`/api/posts/like/${post._id}`, { method: "POST" });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
+      const res = await likeUnlikePost(post._id);
       setPost((prev) => ({ ...prev, likes: data }));
     } catch (err) {
       setError(err.message);
@@ -102,7 +101,7 @@ const Post = ({ post: initialPost }) => {
     <div className='flex gap-2 items-start p-4 border-b border-gray-700'>
       <div className='avatar'>
         <Link href={`/profile/${postOwner.username}`} className='w-8 rounded-full overflow-hidden'>
-          <img src={postOwner.profileImg || "/avatar-placeholder.png"} alt={postOwner.username} />
+          <img src={postOwner.profile_img || "/avatar-placeholder.png"} alt={postOwner.username} />
         </Link>
       </div>
       <div className='flex flex-col flex-1'>

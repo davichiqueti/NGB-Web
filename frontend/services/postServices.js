@@ -82,7 +82,7 @@ export async function createPost(postData) {
 export async function likeUnlikePost(postId) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/like/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}api/posts/like/${postId}`, {
     method: "POST",
     headers: {
       Cookie: `jwt=${jwt}`,
@@ -101,7 +101,7 @@ export async function likeUnlikePost(postId) {
 export async function commentOnPost(postId, commentData) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/comment/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}api/posts/comment/${postId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export async function commentOnPost(postId, commentData) {
 export async function deletePost(postId) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/${postId}`, {
     method: "DELETE",
     headers: {
       Cookie: `jwt=${jwt}`,
