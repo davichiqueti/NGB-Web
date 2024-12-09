@@ -43,35 +43,32 @@ export default function Profile({ user, isLogged, isFollowed }) {
 
   return (
     <div className='flex flex-col'>
-
-      {isLogged && (
-        <div className='flex justify-end p-4'>
-          <button
-            onClick={() => coverImgRef.current.click()}
-            className='bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded mr-2'
-          >
-            Editar Capa
-          </button>
-          <button
-            onClick={() => profileImgRef.current.click()}
-            className='bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded'
-          >
-            Editar Foto de Perfil
-          </button>
-        </div>
-      )}
-
       <ProfileInfo user={userData} />
 
       {isLogged ? (
-        <div className='px-4'>
-          <UpdateButton
-            user={userData}
-            onUserUpdate={handleUserUpdate}
-            cover_img={coverImg}
-            profile_img={profileImg}
-          />
-          <LogoutButton />
+        <div className='flex flex-col items-start p-4 gap-2'>
+          {/* Todos os botões à esquerda */}
+          <div className='flex flex-wrap gap-2'>
+            <button
+              onClick={() => coverImgRef.current.click()}
+              className='bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded'
+            >
+              Editar Capa
+            </button>
+            <button
+              onClick={() => profileImgRef.current.click()}
+              className='bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded'
+            >
+              Editar Foto de Perfil
+            </button>
+            <UpdateButton
+              user={userData}
+              onUserUpdate={handleUserUpdate}
+              cover_img={coverImg}
+              profile_img={profileImg}
+            />
+            <LogoutButton />
+          </div>
         </div>
       ) : (
         <div className='px-4'>
@@ -80,7 +77,6 @@ export default function Profile({ user, isLogged, isFollowed }) {
       )}
 
       <ProfilePosts username={user.username} />
-
 
       <input
         type='file'
