@@ -1,6 +1,6 @@
 
 import Profile from '@/components/pages/profile/profile.js';
-import { getUserData } from '../../../services/userServices';
+import { getLoggedUserData } from '../../../services/userServices';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -14,7 +14,7 @@ export default async function ProfilePage() {
   }
 
   try {
-    const user = await getUserData(jwt);
+    const user = await getLoggedUserData(jwt);
 
     if (!user) {
       redirect('/auth/login');
