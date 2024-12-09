@@ -2,12 +2,16 @@
 
 import React, { useState } from "react";
 import { searchUsers } from "../../../../services/userServices";
+import { useRouter } from 'next/navigation';
+
 
 const ExploreSearch = () => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
     const [error, setError] = useState(null);
 
+    const router = useRouter();
+    
     const handleSearch = async () => {
         try {
             const users = await searchUsers(query);
@@ -17,6 +21,11 @@ const ExploreSearch = () => {
             setError(err.message);
             setResults([]);
         }
+    };
+
+
+    const handleUserClick = (username) => {
+        router.push(`/profile/${username}`);
     };
 
     return (
@@ -50,6 +59,7 @@ const ExploreSearch = () => {
                             <div
                                 key={user._id}
                                 className="flex items-center gap-4 p-4 border border-gray-300 rounded-lg hover:shadow-lg transition"
+                                onClick={() => handleUserClick(user.username)}
                             >
                                 <img
                                     src={user.profile_img}

@@ -24,7 +24,6 @@ const Post = ({ post: initialPost }) => {
   const [isCommenting, setIsCommenting] = useState(false);
   const [error, setError] = useState(null);
 
-  // Verificar se `post` está disponível antes de acessar suas propriedades
   if (!post || !post.user) {
     return null;
   }
@@ -51,7 +50,7 @@ const Post = ({ post: initialPost }) => {
   };
 
   const handleLikePost = async () => {
-    if (isLiking || !post || !authUser) return; // Se não houver authUser, não é possível curtir
+    if (isLiking || !post || !authUser) return;
     setIsLiking(true);
     setError(null);
     try {
@@ -67,7 +66,7 @@ const Post = ({ post: initialPost }) => {
 
   const handlePostComment = async (e) => {
     e.preventDefault();
-    if (isCommenting || !post || !authUser) return; // Se não houver authUser, não comentar
+    if (isCommenting || !post || !authUser) return;
     setIsCommenting(true);
     setError(null);
     try {
@@ -173,7 +172,7 @@ const Post = ({ post: initialPost }) => {
                     </div>
                   ))}
                 </div>
-                {authUser && ( // Só mostra a caixa de comentário se tiver um usuário autenticado
+                {authUser && (
                   <form
                     className='flex gap-2 items-center mt-4 border-t border-gray-600 pt-2'
                     onSubmit={handlePostComment}
