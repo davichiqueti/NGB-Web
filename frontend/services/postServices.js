@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 export async function getAllPosts() {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/all`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/all`, {
     method: "GET",
     headers: {
       Cookie: `jwt=${jwt}`,

@@ -3,6 +3,7 @@
 import '@/styles/globals.css';
 import React, { useState, useEffect } from 'react';
 import Post from '../../src/components/posts/post'; // Importando o componente Post
+import { getAllPosts } from '../../services/postServices';
 
 export default function App() {
   const [posts, setPosts] = useState([]);
@@ -12,14 +13,11 @@ export default function App() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`${process.env.BACKEND_URL}/api/posts/all`);
-        if (!res.ok) {
-          throw new Error('Failed to fetch posts');
-        }
-        const data = await res.json();
-        setPosts(data);
-      } catch (err) {
-        setError('Erro ao carregar os posts. Tente novamente mais tarde.');
+        const posts = await getAllPosts();
+        setPosts(posts); // Já retorna os dados como JSON
+      } catch (error) {
+        console.error("Erro ao buscar posts:", error.message);
+        setError("Erro ao carregar os posts. Tente novamente mais tarde.");
       } finally {
         setLoading(false);
       }
