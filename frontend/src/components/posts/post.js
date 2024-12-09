@@ -14,6 +14,7 @@ import LoadingSpinner from "../../../ultils/loadingSpinner/loadingspinner";
 import { formatPostDate } from "../../../ultils/date/date";
 import { deletePost } from '../../../services/postServices';
 import { likeUnlikePost } from '../../../services/postServices';
+import { commentOnPost } from '../../../services/postServices';
 
 const Post = ({ post: initialPost }) => {
   const { authUser } = useAuth();
@@ -216,9 +217,7 @@ const Post = ({ post: initialPost }) => {
                 {post.likes.length}
               </span>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
