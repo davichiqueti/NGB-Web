@@ -12,7 +12,7 @@ export default async function UserProfilePage({ params }) {
 
   const isLoggedUser = await getLoggedUserData(jwt);
 
-  if (isLoggedUser) {
+  if (isLoggedUser === username) {
     redirect('/profile');
   }
 
@@ -31,6 +31,6 @@ export default async function UserProfilePage({ params }) {
     );
   } catch (error) {
     console.error('Erro ao carregar o perfil do usuário: ', error);
-    redirect('/500');
+    redirect('/');
   }
 }
