@@ -2,8 +2,7 @@ import ExploreSearch from '../../components/pages/explore/explore';
 
 export default function Explore() {
    return (
-    <main>
-      <h1>Explore</h1>
+    <main className="bg-gray-100 min-h-screen">
       <ExploreSearch />
     </main>
   );
