@@ -41,15 +41,7 @@ export default function RootLayout({ children }) {
 
   const isPublicRoute = publicRoutes.includes(pathname);
 
-  if (isAuthenticating) {
-    return (
-      <html lang="en">
-        <body className="bg-gray-800 text-white flex flex-col min-h-screen">
-          <div>Loading...</div>
-        </body>
-      </html>
-    );
-  }
+
 
   return (
     <html lang="en">

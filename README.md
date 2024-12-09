@@ -1,20 +1,21 @@
 # NGB
 
-Repository dedicated to the main project of the course Web Programming (INE5646-UFSC)
+Repositório dedicado ao projeto principal da disciplina Programação para Web (INE5646 - UFSC).
 
-The idea of the project is to develop a web application similar to the social network X (formerly Twitter). Users can make public posts on their profiles, interact with posts from other users, and also exchange private messages with another user.
+O objetivo deste projeto é desenvolver uma aplicação web que funcione de forma semelhante à rede social X (antiga Twitter). A plataforma permitirá que os usuários publiquem postagens públicas em seus perfis e interajam com publicações de outros usuários. Além disso, o sistema contará com funcionalidades para gerenciamento de perfis, busca de usuários, e um feed personalizado para cada usuário, promovendo uma experiência dinâmica e interativa.
 
 ## Students Involved in the Project
 
-- Bernardo Alves Thives
-- Davi Rodrigues Chiqueti
-- Gustavo Gomes Formento
-- Gustavo Padrao Serra de Araujo
+- Bernardo Alves Thives (23200520)
+- Davi Rodrigues Chiqueti (23202061)
+- Gustavo Gomes Formento (23205463)
+- Gustavo Padrao Serra de Araujo (23205462)
 
 ## Running development project
 
 ```bash
 # Starting Back-End
+cd backend
 npm run dev
 # Starting Front-End     
 cd frontend
@@ -25,23 +26,36 @@ npm run dev
 
 ### Authentication ```/api/auth/```
 
-| Method | Endpoint         | Description                                                   |
-|--------|------------------|---------------------------------------------------------------|
-| GET    | `/authcheck`     | Checks if the user is authenticated. Requires a valid token.  |
-| POST   | `/signup`        | Registers a new user.                                         |
-| POST   | `/login`         | Authenticates a user and return a token.                      |
-| POST   | `/logout`        | Logs out the user, invalidating the token.                    |
-| DELETE | `/delete-account`| Delete current logged account, and removes the token.         |
+| Method | Endpoint         | Description                                                      |
+|--------|------------------|------------------------------------------------------------------|
+| GET    | `/authcheck`     | Verifica se o usuário está autenticado. Requer um token válido.  |
+| POST   | `/signup`        | Registra um novo usuário.                                        |
+| POST   | `/login`         | Autentica um usuário e retorna um token.                         |
+| POST   | `/logout`        | Faz logout do usuário, invalidando o token.                      |
+| DELETE | `/delete-account`| Exclui a conta do usuário logado e remove o token.               |
 
 ### Users ```/api/users/```
 
 | Method | Endpoint                     | Description                                                   |
 |--------|----------------------        |---------------------------------------------------------------|
-| GET    | `/profile/$user_name`        | Gets user information.                                        |
-| GET    | `/suggest`                   | Gets suggestions of profiles to follow.                       |
-| POST   | `/toggle-follow/$user_id`    | Follow/Unfollow user.                                         |
-| POST   | `/update`                    | Update user information                                       |
+| GET    | `/profile/$user_name`        | Obtém as informações de um usuário.                           |
+| GET    | `/suggest`                   | Obtém sugestões de perfis para seguir.                        |
+| POST   | `/toggle-follow/$user_id`    | Seguir/Deixar de seguir um usuário.                           |
+| POST   | `/update`                    | Atualiza as informações do usuário.                           |
+
+### Posts ```/api/posts/```
+
+| Method | Endpoint                     | Description                                                   |
+|--------|----------------------        |---------------------------------------------------------------|
+| GET    | `/all`                       | Obtém as informações de todos os posts.                       |
+| GET    | `/following`                 | Obtém posts dos usuarios seguidos.                            |
+| GET    | `/user/:username`            | Obtém os posts de um usuuario especifico.                     |
+| POST   | `/create`                    | Cria um novo post.                                            |
+| POST   | `/like/:id`                  | Curtir um post.                                               |
+| DELETE | `/:id`                       | Excluir um post.                                              |
 
 ### Middlewares
 
-- **protectRoute**: Middleware that protects routes requiring authentication and adds an "user" field in the request for use in controllers.
+- **protectRoute**: Middleware que protege rotas que exigem autenticação e adiciona um campo "user" na requisição para ser utilizado nos controladores.
+
+#### Repositório : https://github.com/davichiqueti/NGB-Web

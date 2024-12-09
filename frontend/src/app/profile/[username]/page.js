@@ -21,7 +21,7 @@ export default async function UserProfilePage({ params }) {
 
     if (!userProfile || !userProfile.user) {
       console.error('Perfil não encontrado ou resposta inválida:', userProfile);
-      redirect('/404');
+      redirect('/');
     }
 
     return (

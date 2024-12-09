@@ -34,7 +34,7 @@ export default function Home(){
     }
   
     return (
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-10 pb-16">
         <h1 className="text-2xl font-bold mb-4">Últimos Posts</h1>
         <div className="grid grid-cols-1 gap-6">
           {posts.length > 0 ? (
