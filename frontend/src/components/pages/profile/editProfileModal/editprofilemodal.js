@@ -14,7 +14,6 @@ export default function EditProfileModal({ user, onClose, onUserUpdate, cover_im
   });
 
   useEffect(() => {
-    // Caso as imagens tenham mudado antes de abrir o modal, atualiza formData
     setFormData((prev) => ({
       ...prev,
       cover_img: cover_img || prev.cover_img,
@@ -85,8 +84,6 @@ export default function EditProfileModal({ user, onClose, onUserUpdate, cover_im
             />
           </div>
 
-          {/* As imagens já estão em formData.cover_img e formData.profile_img se foram selecionadas no componente Profile.
-             Se quiser exibir um preview aqui no modal, você pode: */}
           {formData.cover_img && (
             <div className='mb-4'>
               <label className='block text-white mb-2'>Pré-visualização da Capa:</label>

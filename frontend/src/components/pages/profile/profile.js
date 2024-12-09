@@ -18,7 +18,7 @@ export default function Profile({ user, isLogged, isFollowed }) {
 
   const handleUserUpdate = (updatedUser) => {
     setUserData(updatedUser);
-    // Resetar as imagens após atualização bem-sucedida
+
     setCoverImg(null);
     setProfileImg(null);
   };
@@ -43,7 +43,7 @@ export default function Profile({ user, isLogged, isFollowed }) {
 
   return (
     <div className='flex flex-col'>
-      {/* Botão para editar capa */}
+
       {isLogged && (
         <div className='flex justify-end p-4'>
           <button
@@ -81,7 +81,7 @@ export default function Profile({ user, isLogged, isFollowed }) {
 
       <ProfilePosts username={user.username} />
 
-      {/* Inputs de arquivo ocultos */}
+
       <input
         type='file'
         ref={coverImgRef}

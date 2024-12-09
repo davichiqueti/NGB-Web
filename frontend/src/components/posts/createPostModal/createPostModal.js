@@ -21,7 +21,7 @@ export default function CreatePostModal({ onClose }) {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setFormData({ ...formData, img: reader.result }); // Converte o arquivo em base64
+        setFormData({ ...formData, img: reader.result });
       };
       reader.readAsDataURL(file);
     }
@@ -30,7 +30,7 @@ export default function CreatePostModal({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Chama o método createPost com os dados do formulário
+
       await createPost(formData);
       alert('Post criado com sucesso!');
       onClose();
