@@ -3,15 +3,15 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { logoutUser } from '../../../../../services/userServices';
+import { logout } from './logout'
 
 export default function LogoutButton() {
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
-      await logoutUser();
-      router.push('/auth/login');
+      await logout();
+      router.push('/auth/login')
     } catch (error) {
       console.error(error.message);
     }
