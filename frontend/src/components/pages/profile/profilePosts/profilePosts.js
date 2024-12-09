@@ -1,7 +1,7 @@
 
 export default function ProfilePosts({user}){
 
-    console.log(user)
+    
 
     return(
         <div>

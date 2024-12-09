@@ -3,5 +3,6 @@
 import { cookies } from "next/headers"
 
 export  async function logout() {
-  await cookies().delete('jwt')
+  const coo = await cookies()
+  coo.delete('jwt')
 }
