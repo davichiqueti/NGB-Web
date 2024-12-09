@@ -1,16 +1,26 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { updateUser } from '../../../../../services/userServices';
 
-export default function EditProfileModal({ user, onClose, onUserUpdate }) {
+export default function EditProfileModal({ user, onClose, onUserUpdate, cover_img, profile_img }) {
   const [formData, setFormData] = useState({
     full_name: user.full_name || '',
     username: user.username || '',
     email: user.email || '',
     bio: user.bio || '',
-    // Adicione outros campos conforme necessário
+    cover_img: cover_img || null,
+    profile_img: profile_img || null,
   });
+
+  useEffect(() => {
+    // Caso as imagens tenham mudado antes de abrir o modal, atualiza formData
+    setFormData((prev) => ({
+      ...prev,
+      cover_img: cover_img || prev.cover_img,
+      profile_img: profile_img || prev.profile_img,
+    }));
+  }, [cover_img, profile_img]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,7 +84,22 @@ export default function EditProfileModal({ user, onClose, onUserUpdate }) {
               className="w-full border p-2 text-black"
             />
           </div>
-          {/* Adicione outros campos conforme necessário */}
+
+          {/* As imagens já estão em formData.cover_img e formData.profile_img se foram selecionadas no componente Profile.
+             Se quiser exibir um preview aqui no modal, você pode: */}
+          {formData.cover_img && (
+            <div className='mb-4'>
+              <label className='block text-white mb-2'>Pré-visualização da Capa:</label>
+              <img src={formData.cover_img} alt="Preview Capa" className='w-full h-32 object-cover' />
+            </div>
+          )}
+          {formData.profile_img && (
+            <div className='mb-4'>
+              <label className='block text-white mb-2'>Pré-visualização da Foto de Perfil:</label>
+              <img src={formData.profile_img} alt="Preview Perfil" className='w-32 h-32 rounded-full' />
+            </div>
+          )}
+
           <div className="flex justify-end">
             <button
               type="button"
