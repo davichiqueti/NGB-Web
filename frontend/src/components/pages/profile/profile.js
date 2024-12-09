@@ -51,13 +51,13 @@ export default function Profile({ user, isLogged, isFollowed }) {
           <div className='flex flex-wrap gap-2'>
             <button
               onClick={() => coverImgRef.current.click()}
-              className='bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded'
+              className='bg-slate-600 hover:bg-slate-700 text-white font-bold py-1 px-3 rounded'
             >
               Editar Capa
             </button>
             <button
               onClick={() => profileImgRef.current.click()}
-              className='bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded'
+              className='bg-slate-600 hover:bg-slate-700 text-white font-bold py-1 px-3 rounded'
             >
               Editar Foto de Perfil
             </button>
