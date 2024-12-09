@@ -17,6 +17,7 @@ const app = express();
 // Permitir requisições externas
 app.use(cors({
     origin: process.env.FRONTEND_HOST,
+    methods: ['GET', 'POST', 'OPTIONS'],
     credentials: true
 }));
 
