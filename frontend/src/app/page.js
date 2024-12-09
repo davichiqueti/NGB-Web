@@ -1,6 +1,6 @@
 'use client';
 
-import '@/styles/globals.css';
+
 import React, { useState, useEffect } from 'react';
 import Post from '../../src/components/posts/post';
 import { getAllPosts } from '../../services/postServices';
