@@ -11,6 +11,7 @@ export const generateUserToken = (user_ID, res) => {
         httpOnly: true,
         sameSite: "None",
         secure: process.env.NODE_ENV !== "development",
-        partitioned: true
+        partitioned: true,
+        domain: ".onrender.com"
     });
 }
