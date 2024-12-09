@@ -53,7 +53,6 @@ const Post = ({ post: initialPost }) => {
     try {
       const updatedLikes = await likeUnlikePost(post._id);
 
-      // Atualiza o estado preservando os dados do post
       setPost((prev) => ({
         ...prev,
         likes: updatedLikes.likes,
@@ -94,16 +93,25 @@ const Post = ({ post: initialPost }) => {
 
   return (
     <div className="flex gap-2 items-start p-4 border-b border-gray-700">
-      <div className="avatar">
-        <Link href={`/profile/${postOwner?.username}`} className="w-8 rounded-full overflow-hidden">
+      <div
+        className="avatar"
+        style={{
+          width: "50px",
+          height: "50px",
+          borderRadius: "50%",
+          overflow: "hidden",
+          flexShrink: 0,
+        }}
+      >
+        <Link href={`/profile/${postOwner?.username}`}>
           <img
             src={postOwner?.profile_img || "/defaultuser.png"}
             alt={postOwner?.username}
-            className={`${
-              postOwner?.profile_img
-                ? ""
-                : "w-[50px] h-[50px] rounded-full flex items-center justify-center"
-            }`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
           />
         </Link>
       </div>
@@ -134,7 +142,7 @@ const Post = ({ post: initialPost }) => {
             <img
               src={post.img}
               className="h-80 object-contain rounded-lg border border-gray-700"
-              alt=""
+              alt="Post Content"
             />
           )}
         </div>
