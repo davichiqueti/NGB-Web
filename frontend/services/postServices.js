@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 export async function getAllPosts() {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/all`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/all`, {
     method: "GET",
     headers: {
       Cookie: `jwt=${jwt}`,
@@ -23,21 +23,17 @@ export async function getAllPosts() {
 }
 
 // Obtém posts de um usuário específico
-export async function getUserPosts(userId) {
+export async function getUserPosts(username) {
   const jwt = (await cookies()).get("jwt")?.value;
-
-  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/user/${userId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/user/${username}`, {
     method: "GET",
-    headers: {
-      Cookie: `jwt=${jwt}`,
-    },
+    headers: { Cookie: `jwt=${jwt}` },
     credentials: "include",
   });
 
   if (!response.ok) {
     throw new Error("Falha ao obter posts do usuário");
   }
-
   return await response.json();
 }
 
@@ -86,7 +82,7 @@ export async function createPost(postData) {
 export async function likeUnlikePost(postId) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/like/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/like/${postId}`, {
     method: "POST",
     headers: {
       Cookie: `jwt=${jwt}`,
@@ -105,7 +101,7 @@ export async function likeUnlikePost(postId) {
 export async function commentOnPost(postId, commentData) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/comment/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}api/posts/comment/${postId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -127,7 +123,7 @@ export async function commentOnPost(postId, commentData) {
 export async function deletePost(postId) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/${postId}`, {
     method: "DELETE",
     headers: {
       Cookie: `jwt=${jwt}`,

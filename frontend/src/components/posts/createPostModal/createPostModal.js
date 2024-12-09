@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { createPost } from '../../../../services/postServices';
 
 export default function CreatePostModal({ onClose }) {
@@ -9,18 +9,31 @@ export default function CreatePostModal({ onClose }) {
     img: '',
   });
 
-  const handleChange = (e) => {
+  const fileInputRef = useRef(null);
+
+  const handleTextChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFormData({ ...formData, img: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Chama o método createPost com os dados do formulário
-      await createPost(formData);  
+
+      await createPost(formData);
       alert('Post criado com sucesso!');
-      onClose(); 
+      onClose();
     } catch (error) {
       console.error(error.message);
       alert('Erro ao criar o post.');
@@ -37,21 +50,29 @@ export default function CreatePostModal({ onClose }) {
             <textarea
               name="text"
               value={formData.text}
-              onChange={handleChange}
+              onChange={handleTextChange}
               className="w-full border p-2 text-black"
               placeholder="O que está acontecendo?"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-white">Imagem (URL):</label>
+            <label className="block text-white">Imagem:</label>
             <input
-              type="text"
-              name="img"
-              value={formData.img}
-              onChange={handleChange}
+              type="file"
+              ref={fileInputRef}
+              accept="image/*"
+              onChange={handleImageChange}
               className="w-full border p-2 text-black"
-              placeholder="Insira o link da imagem"
             />
+            {formData.img && (
+              <div className="mt-2">
+                <img
+                  src={formData.img}
+                  alt="Pré-visualização"
+                  className="max-w-full h-auto rounded"
+                />
+              </div>
+            )}
           </div>
           <div className="flex justify-end">
             <button
