@@ -82,7 +82,7 @@ export async function createPost(postData) {
 export async function likeUnlikePost(postId) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}api/posts/like/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/like/${postId}`, {
     method: "POST",
     headers: {
       Cookie: `jwt=${jwt}`,
