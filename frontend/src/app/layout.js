@@ -9,15 +9,14 @@ import Aside from "../components/navigation/aside/aside.js";
 import Footer from "@/components/navigation/mobile/footer/footer.js";
 import Header from "@/components/navigation/mobile/header/header.js";
 import PostBtn from "@/components/posts/postBtn/postBtn.js";
-import { AuthProvider } from '@/context/AuthContext'; // Importa o AuthProvider
+import { AuthProvider } from '@/context/AuthContext';
 
 export default function RootLayout({ children }) {
   const router = useRouter();
-  const pathname = usePathname(); // Rota atual
+  const pathname = usePathname();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Rotas públicas que não precisam de autenticação
   const publicRoutes = ['/auth/login', '/auth/signup'];
 
   useEffect(() => {
@@ -42,7 +41,6 @@ export default function RootLayout({ children }) {
 
   const isPublicRoute = publicRoutes.includes(pathname);
 
-  // Se ainda estamos autenticando, mostra um estado de loading
   if (isAuthenticating) {
     return (
       <html lang="en">
@@ -56,14 +54,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-gray-800 text-white flex flex-col min-h-screen">
-        <AuthProvider> {/* Provider de autenticação envolvendo toda a aplicação */}
+        <AuthProvider>
           {!isPublicRoute && <Header />}
 
           <div className="flex flex-grow">
             {!isPublicRoute && <Aside className="hidden sm-500:block" />}
 
             <main className={`flex-grow ${!isPublicRoute ? 'sm-500:ml-24 sm:ml-32 md:ml-36 md-900:ml-40 lg:ml-64 xl:ml-72 2xl:ml-80 ' : ''}`}>
-              <div className={` ${!isPublicRoute ? "max-w-3xl h-screen md-900:border-r md-900:border-slate-400" : "" }`}>
+              <div className={` ${!isPublicRoute ? "" : "" }`}>
                 {children}
               </div>
               {!isPublicRoute && <PostBtn />}
