@@ -1,7 +1,6 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { FaRegComment } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
@@ -9,7 +8,7 @@ import Link from "next/link";
 
 import LoadingSpinner from "../../../ultils/loadingSpinner/loadingspinner";
 import { formatPostDate } from "../../../ultils/date/date";
-import { deletePost, commentOnPost, likeUnlikePost } from "../../../services/postServices";
+import { deletePost, likeUnlikePost } from "../../../services/postServices";
 
 const Post = ({ post: initialPost }) => {
   const { authUser } = useAuth();
@@ -46,13 +45,11 @@ const Post = ({ post: initialPost }) => {
     }
   };
 
-
 const handleLikePost = async () => {
   if (isLiking || !post || !authUser) return;
   setIsLiking(true);
   setError(null);
 
-  // Atualizar otimisticamente o estado local
   const wasLiked = isLiked;
   setPost((prev) => ({
     ...prev,
@@ -62,10 +59,8 @@ const handleLikePost = async () => {
   }));
 
   try {
-    // Enviar a atualização para o back-end
     await likeUnlikePost(post._id);
   } catch (err) {
-    // Reverter a atualização local em caso de erro
     setPost((prev) => ({
       ...prev,
       likes: wasLiked
@@ -79,23 +74,6 @@ const handleLikePost = async () => {
   }
 };
 
-  const handlePostComment = async (e) => {
-    e.preventDefault();
-    if (isCommenting || !post || !authUser) return;
-    setIsCommenting(true);
-    setError(null);
-    setSuccessMessage("");
-    try {
-      const updatedPost = await commentOnPost(post._id, comment);
-      setSuccessMessage("Comment posted successfully");
-      setComment("");
-      setPost(updatedPost);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsCommenting(false);
-    }
-  };
 
   if (!post) {
     return null;
@@ -162,15 +140,7 @@ const handleLikePost = async () => {
 
         <div className="flex justify-between mt-3">
           <div className="flex gap-4 w-2/3 justify-around items-end">
-            <div
-              className="flex gap-1 items-center cursor-pointer group"
-              onClick={() => document.getElementById(`comment-input-${post._id}`).focus()}
-            >
-              <FaRegComment className="w-4 h-4 text-slate-500 group-hover:text-sky-400" />
-              <span className="text-sm text-slate-500 group-hover:text-sky-400">
-                {post?.comments?.length || 0}
-              </span>
-            </div>
+
 
             <div
               className="flex gap-1 items-center group cursor-pointer"
@@ -194,23 +164,6 @@ const handleLikePost = async () => {
           </div>
         </div>
 
-        <form onSubmit={handlePostComment} className="mt-3 flex items-center gap-2">
-          <input
-            id={`comment-input-${post._id}`}
-            type="text"
-            placeholder="Add a comment..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            className="flex-1 px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
-          />
-          <button
-            type="submit"
-            disabled={isCommenting}
-            className="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-4 py-2 rounded-md transition"
-          >
-            {isCommenting ? <LoadingSpinner size="sm" /> : "Post"}
-          </button>
-        </form>
       </div>
     </div>
   );

@@ -2,14 +2,14 @@
 
 import React, { useState } from "react";
 import { searchUsers } from "../../../../services/userServices";
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 export default function ExploreSearch() {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
     const [error, setError] = useState(null);
 
-    const router = useRouter();
+    
 
     const handleSearch = async () => {
         try {
@@ -23,7 +23,7 @@ export default function ExploreSearch() {
     };
 
     const handleUserClick = (username) => {
-        router.push(`/profile/${username}`);
+        redirect(`/profile/${username}`);
     };
 
     return (
@@ -61,7 +61,7 @@ export default function ExploreSearch() {
                                     onClick={() => handleUserClick(user.username)}
                                 >
                                     <img
-                                        src={user.profile_img}
+                                        src={user.profile_img ? user.profile_img : "/defaultuser.png"}
                                         alt={`${user.username} profile`}
                                         className="w-12 h-12 rounded-full"
                                     />
