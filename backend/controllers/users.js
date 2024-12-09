@@ -138,7 +138,7 @@ export const updateUserProfile = async (req, res) => {
             }
             const valid_current_password = await bcrypt.compare(current_password, user.password);
             if (!valid_current_password) {
-                return res.status(400).json({ error: "Current password incorrect" });
+                return res.status(400).json({ error: "Current password is incorrect" });
             }
             const salt = await bcrypt.genSaltSync(10);
             user.password = await bcrypt.hash(new_password, salt);
@@ -170,41 +170,32 @@ export const updateUserProfile = async (req, res) => {
             user.username = username;
         }
         
-        // Upload de imagens (profile_img e cover_img) usando Cloudinary
-        // Se o usuário passar novos links base64 (por exemplo), faremos upload
-        // Antes, deletamos a imagem antiga se ela existir
+        // Upload de imagens
         if (profile_img) {
-            // Deleta a imagem anterior no Cloudinary se existir
             if (user.profile_img) await deleteCloudinaryImage(user.profile_img);
-
-            // Faz upload da nova imagem
             const uploadedProfile = await cloudinary.uploader.upload(profile_img);
             user.profile_img = uploadedProfile.secure_url;
         }
 
         if (cover_img) {
-            // Deleta a imagem anterior no Cloudinary se existir
             if (user.cover_img) await deleteCloudinaryImage(user.cover_img);
-
-            // Faz upload da nova imagem
             const uploadedCover = await cloudinary.uploader.upload(cover_img);
             user.cover_img = uploadedCover.secure_url;
         }
 
-        // Atualizando outros campos
         user.full_name = full_name ?? user.full_name;
         user.bio = bio ?? user.bio;
 
-        // Salvando e removendo password do retorno
         user = await user.save();
         user.password = null;
 
-        return res.status(200).json({ message: "User updated successfully", user: user});
+        return res.status(200).json({ message: "User updated successfully", user: user });
     } catch (error) {
         console.log(`Error in updateUserProfile controller: "${error.message}"`);
-        res.status(500).json({error: `Internal Server Error: "${error.message}"`});
+        res.status(500).json({ error: `Internal Server Error: "${error.message}"` });
     } 
 };
+
 
 export const searchUsers = async (req, res) => {
     try {

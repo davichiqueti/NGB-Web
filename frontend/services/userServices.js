@@ -19,25 +19,26 @@ export async function getLoggedUserData(jwt) {
 }
 
 export async function updateUser(formData) {
-  const jwt = (await cookies()).get('jwt').value
+  const jwt = (await cookies()).get('jwt').value;
   const response = await fetch(`${process.env.BACKEND_URL}/api/users/update`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      Cookie: `jwt=${jwt}`
-    },
-    body: JSON.stringify(formData),
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+          'Content-Type': 'application/json',
+          Cookie: `jwt=${jwt}`
+      },
+      body: JSON.stringify(formData),
   });
 
   if (!response.ok) {
-    const response_data = await response.json();
-    console.log(response_data.error);
-    throw new Error(response_data.error || 'Falha ao atualizar informações');
+      const response_data = await response.json();
+      console.log(response_data.error);
+      throw new Error(response_data.error || 'Falha ao atualizar informações');
   }
 
   return response.json();
 }
+
 
 export async function getUserProfile(username) {
 
