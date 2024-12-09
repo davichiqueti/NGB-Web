@@ -1,7 +1,7 @@
 
 
 import Link from 'next/link';
-import { FaHashtag, FaHouse, FaBell, FaEnvelope } from "react-icons/fa6";
+import { FaHashtag, FaHouse } from "react-icons/fa6";
 import { IoPersonOutline } from "react-icons/io5";
 
 export default function Aside() {
@@ -35,22 +35,6 @@ export default function Aside() {
 
                     <FaHashtag className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl" />
                     <p className="text-left sm-500:hidden lg:block ">Explore</p>
-                </Link>
-
-                <Link href="/notifications" className="text-2xl font-semibold hover:text-gray-300 
-                                                        flex items-center space-x-2 
-                                                        lg:pl-8 xl:pl-14 2xl:pl-20">
-
-                    <FaBell className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl" />
-                    <p className="text-left sm-500:hidden lg:block ">Notifications</p>
-                </Link>
-
-                <Link href="/messages" className="text-2xl font-semibold hover:text-gray-300 
-                                                    flex items-center space-x-2 
-                                                    lg:pl-8 xl:pl-14 2xl:pl-20">
-
-                    <FaEnvelope className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl" />
-                    <p className="text-left sm-500:hidden lg:block ">Messages</p>
                 </Link>
 
                 <Link href="/profile" className="text-2xl font-semibold hover:text-gray-300 
