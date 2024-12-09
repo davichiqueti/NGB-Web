@@ -6,7 +6,6 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
 
 import LoadingSpinner from "../../../ultils/loadingSpinner/loadingspinner";
 import { formatPostDate } from "../../../ultils/date/date";
@@ -20,6 +19,7 @@ const Post = ({ post: initialPost }) => {
   const [isLiking, setIsLiking] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   if (!post || !post.user) {
     return null;
@@ -34,13 +34,13 @@ const Post = ({ post: initialPost }) => {
     if (isDeleting) return;
     setIsDeleting(true);
     setError(null);
+    setSuccessMessage("");
     try {
       await deletePost(post._id);
-      toast.success("Post deleted successfully");
+      setSuccessMessage("Post deleted successfully");
       setPost(null);
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setIsDeleting(false);
     }
@@ -50,6 +50,7 @@ const Post = ({ post: initialPost }) => {
     if (isLiking || !post || !authUser) return;
     setIsLiking(true);
     setError(null);
+    setSuccessMessage("");
     try {
       const updatedLikes = await likeUnlikePost(post._id);
 
@@ -58,12 +59,11 @@ const Post = ({ post: initialPost }) => {
         likes: updatedLikes.likes,
       }));
 
-      toast.success(
+      setSuccessMessage(
         updatedLikes.likes.includes(authUser._id) ? "Post liked" : "Post unliked"
       );
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setIsLiking(false);
     }
@@ -74,14 +74,14 @@ const Post = ({ post: initialPost }) => {
     if (isCommenting || !post || !authUser) return;
     setIsCommenting(true);
     setError(null);
+    setSuccessMessage("");
     try {
       const updatedPost = await commentOnPost(post._id, comment);
-      toast.success("Comment posted successfully");
+      setSuccessMessage("Comment posted successfully");
       setComment("");
       setPost(updatedPost);
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setIsCommenting(false);
     }
@@ -93,6 +93,9 @@ const Post = ({ post: initialPost }) => {
 
   return (
     <div className="flex gap-2 items-start p-4 border-b border-gray-700">
+      {error && <div className="text-red-500 text-sm">{error}</div>}
+      {successMessage && <div className="text-green-500 text-sm">{successMessage}</div>}
+
       <div
         className="avatar"
         style={{
