@@ -30,7 +30,7 @@ export default function Profile({ user, isLogged, isFollowed }) {
         </div>
       }
 
-      <ProfilePosts user={user} />
+      <ProfilePosts username={user.username} />
             
     </div>
   );

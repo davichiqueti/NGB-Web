@@ -23,21 +23,17 @@ export async function getAllPosts() {
 }
 
 // Obtém posts de um usuário específico
-export async function getUserPosts(userId) {
+export async function getUserPosts(username) {
   const jwt = (await cookies()).get("jwt")?.value;
-
-  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/user/${userId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/user/${username}`, {
     method: "GET",
-    headers: {
-      Cookie: `jwt=${jwt}`,
-    },
+    headers: { Cookie: `jwt=${jwt}` },
     credentials: "include",
   });
 
   if (!response.ok) {
     throw new Error("Falha ao obter posts do usuário");
   }
-
   return await response.json();
 }
 
