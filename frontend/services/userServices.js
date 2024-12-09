@@ -108,3 +108,30 @@ export async function toggleFollowUser(userId) {
     throw error;
   }
 }
+
+export async function searchUsers(query) {
+  const jwt = (await cookies()).get('jwt')?.value;
+
+  if (!query) {
+    throw new Error("O parâmetro de busca (query) é obrigatório.");
+  }
+
+  try {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/users/search?query=${encodeURIComponent(query)}`, {
+      method: 'GET',
+      headers: {
+        Cookie: `jwt=${jwt}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Erro ao buscar usuários.');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Erro ao buscar usuários:', error);
+    throw error;
+  }
+}

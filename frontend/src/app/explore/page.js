@@ -1,6 +1,10 @@
+import ExploreSearch from '../../components/pages/explore/explore';
 
 export default function Explore() {
-    return(
-            <h1>Explore</h1>
-    )
-}
+   return (
+    <main>
+      <h1>Explore</h1>
+      <ExploreSearch />
+    </main>
+  );
+};

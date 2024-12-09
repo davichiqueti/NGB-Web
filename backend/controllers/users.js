@@ -205,3 +205,31 @@ export const updateUserProfile = async (req, res) => {
         res.status(500).json({error: `Internal Server Error: "${error.message}"`});
     } 
 };
+
+export const searchUsers = async (req, res) => {
+    try {
+        const { query } = req.query; // Captura o termo de busca
+
+        if (!query) {
+            return res.status(400).json({ message: "Search query is required" });
+        }
+
+        // Busca usuários cujo nome de usuário ou nome completo corresponda ao termo
+        const users = await User.find({
+            $or: [
+                { username: { $regex: query, $options: "i" } },
+                { full_name: { $regex: query, $options: "i" } }
+            ]
+        }).select("username full_name profile_img");
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: "No users found" });
+        }
+
+        res.status(200).json(users);
+    } catch (error) {
+        console.log(`Error in searchUsers controller: "${error.message}"`);
+        res.status(500).json({ error: `Internal Server Error: "${error.message}"` });
+    }
+};
+
