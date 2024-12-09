@@ -1,4 +1,4 @@
-import { FaHashtag, FaHouse, FaBell, FaEnvelope } from "react-icons/fa6";
+import { FaHashtag, FaHouse } from "react-icons/fa6";
 import Link from "next/link";
 
 export default function Footer() {
@@ -16,13 +16,6 @@ export default function Footer() {
                         <FaHashtag />
                     </Link>
 
-                    <Link href="/notifications">
-                        <FaBell />
-                    </Link>
-
-                    <Link href="/messages">
-                        <FaEnvelope />
-                    </Link>
                 </div>
             </footer>
         </>

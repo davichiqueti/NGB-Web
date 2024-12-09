@@ -1,20 +1,19 @@
 import Image from 'next/image';
 
 export default function ProfileInfo({ user }) {
-
   const userFollowers = user.followers.length;
   const userFollowing = user.following.length;
 
   return (
     <>
       <div id="info" className="relative">
-        
         <div id='banner' className="w-full h-48 relative">
           <Image
-            src={user.banner_img || '/cover.jpg'}
+            src={user.cover_img || '/cover.jpg'}
             alt="Banner do Perfil"
             fill
-            objectFit="cover"
+            style={{ objectFit: 'cover' }}
+            sizes="100vw"
             priority
           />
         </div>
@@ -49,19 +48,16 @@ export default function ProfileInfo({ user }) {
           <p className="mb-2">Bio: {user.bio}</p>
 
           <div id="follow-numbers" className="flex flex-row gap-4 text-sm mb-4 font-semibold">
+            <div id="following" className="flex flex-row gap-1">
+              {userFollowing}
+              <p className='font-thin '>Following</p>
+            </div>
 
-              <div id="following" className="flex flex-row gap-1">
-                {userFollowing}
-                <p className='font-thin '>Following</p>
-              </div>
-
-              <div id="followers" className="flex flex-row gap-1">
-                {userFollowers}
-                <p className='font-thin '>Followers</p>
-              </div>
-          
+            <div id="followers" className="flex flex-row gap-1">
+              {userFollowers}
+              <p className='font-thin '>Followers</p>
+            </div>
           </div>
-
         </div>
       </div>
     </>
