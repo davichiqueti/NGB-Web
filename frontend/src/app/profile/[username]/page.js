@@ -1,17 +1,28 @@
-import { getOtherUserProfile } from '../../../../services/userServices';
+import { getUserProfile } from '../../../../services/userServices';
+import { getLoggedUserData } from '../../../../services/userServices';
 import { redirect } from 'next/navigation';
 import Profile from '@/components/pages/profile/profile.js';
+import { cookies } from 'next/headers';
 
 export default async function UserProfilePage({ params }) {
   const { username } = await params;
 
+  const cookieStore = await cookies();
+  const jwt = cookieStore.get('jwt')?.value;
+
+  const isLoggedUser = await getLoggedUserData(jwt);
+
+  if (isLoggedUser) {
+    redirect('/profile');
+  }
+
   try {
-    const userProfile = await getOtherUserProfile(username);
+    const userProfile = await getUserProfile(username);
 
     if (!userProfile || !userProfile.user) {
-        console.error('Perfil não encontrado ou resposta inválida:', userProfile);
-        redirect('/404');
-    }   
+      console.error('Perfil não encontrado ou resposta inválida:', userProfile);
+      redirect('/404');
+    }
 
     return (
       <div>

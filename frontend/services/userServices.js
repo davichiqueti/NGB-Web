@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-export async function getUserData(jwt) {
+export async function getLoggedUserData(jwt) {
   const response = await fetch(`${process.env.BACKEND_URL}/api/auth/authcheck`, {
     method: 'GET',
     headers: {
@@ -39,7 +39,7 @@ export async function updateUser(formData) {
   return response.json();
 }
 
-export async function getOtherUserProfile(username) {
+export async function getUserProfile(username) {
 
   const jwt = (await cookies()).get('jwt').value
 
