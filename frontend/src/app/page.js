@@ -2,7 +2,7 @@
 
 import '@/styles/globals.css';
 import React, { useState, useEffect } from 'react';
-import Post from '../../src/components/posts/post'; // Importando o componente Post
+import Post from '../../src/components/posts/post';
 import { getAllPosts } from '../../services/postServices';
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
     const fetchPosts = async () => {
       try {
         const posts = await getAllPosts();
-        setPosts(posts); // Já retorna os dados como JSON
+        setPosts(posts);
       } catch (error) {
         console.error("Erro ao buscar posts:", error.message);
         setError("Erro ao carregar os posts. Tente novamente mais tarde.");
