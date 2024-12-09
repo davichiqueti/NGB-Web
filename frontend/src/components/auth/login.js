@@ -11,11 +11,10 @@ const LoginForm = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 
-  // verify if usar is authenticated
   useEffect(() => {
     if (isAuthenticated()) {
       console.log("autenticado")
-      router.push('/'); // redirect to home
+      router.push('/');
     }
   }, [router]);
 
@@ -30,7 +29,7 @@ const LoginForm = () => {
     try {
       await login(formData.username, formData.password);
       alert('Login successful!');
-      router.push('/'); // Redirect to home
+      router.push('/');
     } catch (err) {
       setError(err.message);
     }

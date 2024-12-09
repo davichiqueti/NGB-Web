@@ -1,6 +1,6 @@
 'use client';
 
-import '@/styles/globals.css';
+
 import React, { useState, useEffect } from 'react';
 import Post from '../../src/components/posts/post';
 import { getAllPosts } from '../../services/postServices';
@@ -14,7 +14,7 @@ export default function App() {
     const fetchPosts = async () => {
       try {
         const posts = await getAllPosts();
-        setPosts(posts);
+        setPosts(posts); 
       } catch (error) {
         console.error("Erro ao buscar posts:", error.message);
         setError("Erro ao carregar os posts. Tente novamente mais tarde.");
@@ -40,7 +40,7 @@ export default function App() {
       <div className="grid grid-cols-1 gap-6">
         {posts.length > 0 ? (
           posts.map((post) => (
-            <Post key={post._id} post={post} /> // Utilizando o componente Post para renderizar cada post
+            <Post key={post._id} post={post} /> 
           ))
         ) : (
           <div className="text-center text-gray-500">Nenhum post encontrado.</div>

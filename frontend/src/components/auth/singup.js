@@ -15,10 +15,9 @@ const SignupForm = () => {
   });
   const [error, setError] = useState('');
 
-  // check if user is authenticated
   useEffect(() => {
       if (isAuthenticated()){
-        router.push('/'); //redirect to home
+        router.push('/');
       }
   }, [router]);
 
@@ -33,7 +32,7 @@ const SignupForm = () => {
     try {
       await signup(formData)
       alert('Login successful!');
-      router.push('/'); // Redirect to home
+      router.push('/');
     } catch(err){
       setError(err.message)
     }
