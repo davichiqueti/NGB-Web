@@ -6,7 +6,6 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
 
 import LoadingSpinner from "../../../ultils/loadingSpinner/loadingspinner";
 import { formatPostDate } from "../../../ultils/date/date";
@@ -20,6 +19,7 @@ const Post = ({ post: initialPost }) => {
   const [isLiking, setIsLiking] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   if (!post || !post.user) {
     return null;
@@ -34,55 +34,64 @@ const Post = ({ post: initialPost }) => {
     if (isDeleting) return;
     setIsDeleting(true);
     setError(null);
+    setSuccessMessage("");
     try {
       await deletePost(post._id);
-      toast.success("Post deleted successfully");
+      setSuccessMessage("Post deleted successfully");
       setPost(null);
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setIsDeleting(false);
     }
   };
 
-  const handleLikePost = async () => {
-    if (isLiking || !post || !authUser) return;
-    setIsLiking(true);
-    setError(null);
-    try {
-      const updatedLikes = await likeUnlikePost(post._id);
 
-      // Atualiza o estado preservando os dados do post
-      setPost((prev) => ({
-        ...prev,
-        likes: updatedLikes.likes,
-      }));
+const handleLikePost = async () => {
+  if (isLiking || !post || !authUser) return;
+  setIsLiking(true);
+  setError(null);
 
-      toast.success(
-        updatedLikes.likes.includes(authUser._id) ? "Post liked" : "Post unliked"
-      );
-    } catch (err) {
-      setError(err.message);
-      toast.error(err.message);
-    } finally {
-      setIsLiking(false);
-    }
-  };
+  // Atualizar otimisticamente o estado local
+  const wasLiked = isLiked;
+  setPost((prev) => ({
+    ...prev,
+    likes: wasLiked
+      ? prev.likes.filter((id) => id !== authUser._id)
+      : [...prev.likes, authUser._id],
+  }));
+
+  try {
+    // Enviar a atualização para o back-end
+    await likeUnlikePost(post._id);
+  } catch (err) {
+    // Reverter a atualização local em caso de erro
+    setPost((prev) => ({
+      ...prev,
+      likes: wasLiked
+        ? [...prev.likes, authUser._id]
+        : prev.likes.filter((id) => id !== authUser._id),
+    }));
+    setError(err.message);
+    toast.error(`Error: ${err.message}`);
+  } finally {
+    setIsLiking(false);
+  }
+};
 
   const handlePostComment = async (e) => {
     e.preventDefault();
     if (isCommenting || !post || !authUser) return;
     setIsCommenting(true);
     setError(null);
+    setSuccessMessage("");
     try {
       const updatedPost = await commentOnPost(post._id, comment);
-      toast.success("Comment posted successfully");
+      setSuccessMessage("Comment posted successfully");
       setComment("");
       setPost(updatedPost);
     } catch (err) {
       setError(err.message);
-      toast.error(err.message);
     } finally {
       setIsCommenting(false);
     }
@@ -94,16 +103,28 @@ const Post = ({ post: initialPost }) => {
 
   return (
     <div className="flex gap-2 items-start p-4 border-b border-gray-700">
-      <div className="avatar">
-        <Link href={`/profile/${postOwner?.username}`} className="w-8 rounded-full overflow-hidden">
+      {error && <div className="text-red-500 text-sm">{error}</div>}
+      {successMessage && <div className="text-green-500 text-sm">{successMessage}</div>}
+
+      <div
+        className="avatar"
+        style={{
+          width: "50px",
+          height: "50px",
+          borderRadius: "50%",
+          overflow: "hidden",
+          flexShrink: 0,
+        }}
+      >
+        <Link href={`/profile/${postOwner?.username}`}>
           <img
             src={postOwner?.profile_img || "/defaultuser.png"}
             alt={postOwner?.username}
-            className={`${
-              postOwner?.profile_img
-                ? ""
-                : "w-[50px] h-[50px] rounded-full flex items-center justify-center"
-            }`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
           />
         </Link>
       </div>
@@ -134,7 +155,7 @@ const Post = ({ post: initialPost }) => {
             <img
               src={post.img}
               className="h-80 object-contain rounded-lg border border-gray-700"
-              alt=""
+              alt="Post Content"
             />
           )}
         </div>
