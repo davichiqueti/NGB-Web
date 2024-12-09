@@ -101,7 +101,7 @@ export async function likeUnlikePost(postId) {
 export async function commentOnPost(postId, commentData) {
   const jwt = (await cookies()).get("jwt")?.value;
 
-  const response = await fetch(`${process.env.BACKEND_URL}api/posts/comment/${postId}`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/posts/comment/${postId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
