@@ -46,28 +46,39 @@ const Post = ({ post: initialPost }) => {
     }
   };
 
-  const handleLikePost = async () => {
-    if (isLiking || !post || !authUser) return;
-    setIsLiking(true);
-    setError(null);
-    try {
-      const updatedLikes = await likeUnlikePost(post._id);
+const handleLikePost = async () => {
+  if (isLiking || !post || !authUser) return;
 
-      setPost((prev) => ({
-        ...prev,
-        likes: updatedLikes.likes,
-      }));
+  setIsLiking(true);
+  setError(null);
 
-      toast.success(
-        updatedLikes.likes.includes(authUser._id) ? "Post liked" : "Post unliked"
-      );
-    } catch (err) {
-      setError(err.message);
-      toast.error(err.message);
-    } finally {
-      setIsLiking(false);
-    }
-  };
+  // Atualizar otimisticamente o estado local
+  const wasLiked = isLiked;
+  setPost((prev) => ({
+    ...prev,
+    likes: wasLiked
+      ? prev.likes.filter((id) => id !== authUser._id)
+      : [...prev.likes, authUser._id],
+  }));
+
+  try {
+    // Enviar a atualização para o back-end
+    await likeUnlikePost(post._id);
+  } catch (err) {
+    // Reverter a atualização local em caso de erro
+    setPost((prev) => ({
+      ...prev,
+      likes: wasLiked
+        ? [...prev.likes, authUser._id]
+        : prev.likes.filter((id) => id !== authUser._id),
+    }));
+    setError(err.message);
+    toast.error(`Error: ${err.message}`);
+  } finally {
+    setIsLiking(false);
+  }
+};
+
 
   const handlePostComment = async (e) => {
     e.preventDefault();
