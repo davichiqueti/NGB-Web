@@ -8,6 +8,7 @@ export async function getLoggedUserData(jwt) {
     headers: {
       Cookie: `jwt=${jwt}`,
     },
+    credentials: "include"
   });
 
   if (!response.ok) {
